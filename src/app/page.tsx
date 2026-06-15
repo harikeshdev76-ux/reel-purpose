@@ -1,101 +1,217 @@
-import Image from "next/image";
+import Link from "next/link";
+
+const SPECIES = [
+  { name: "Tarpon", value: "TARPON" },
+  { name: "Snook", value: "SNOOK" },
+  { name: "Redfish", value: "REDFISH" },
+  { name: "Tuna / Mahi", value: "TUNA_MAHI" },
+  { name: "Bass", value: "BASS" },
+  { name: "Coming Soon", value: null },
+];
+
+const FEATURED_PRODUCTS = [
+  { name: "Tarpon Silhouette Tee", species: "Tarpon Series", price: "$38" },
+  { name: "Snook Strike Hat", species: "Snook Series", price: "$32" },
+  { name: "Redfish Tail Tee", species: "Redfish Series", price: "$38" },
+];
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <>
+      {/* ───────────────────────── HERO ───────────────────────── */}
+      <section className="bg-brand-base">
+        <div className="mx-auto flex max-w-7xl flex-col items-center gap-12 px-6 py-16 lg:flex-row lg:py-24">
+          {/* Left */}
+          <div className="lg:flex-[1.2]">
+            <p className="border-l-2 border-brand-sectionGreen pl-3 font-condensed text-sm uppercase tracking-widest text-brand-sectionGreen">
+              Florida Fishing Apparel
+            </p>
+            <h1 className="mt-5 font-display text-[56px] leading-[0.95] text-brand-textPrimary md:text-[88px]">
+              BUILT FOR THE <span className="text-brand-rust">TIDE.</span>
+            </h1>
+            <p className="mt-5 max-w-xl font-body text-lg text-brand-textMuted">
+              Saltwater, freshwater, family, and purpose-driven anglers. Gear
+              that wears your passion.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <Link
+                href="/shop"
+                className="bg-brand-rust px-7 py-3 font-condensed text-sm font-bold uppercase tracking-widest text-white transition-colors hover:bg-brand-rustHover"
+              >
+                Shop Collections
+              </Link>
+              <Link
+                href="/about"
+                className="border border-brand-textPrimary/30 px-7 py-3 font-condensed text-sm font-bold uppercase tracking-widest text-brand-textPrimary transition-colors hover:border-brand-textPrimary"
+              >
+                Our Story
+              </Link>
+            </div>
+          </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+          {/* Right: featured product card */}
+          <div className="w-full lg:flex-[0.9]">
+            <div className="mx-auto max-w-md bg-brand-surface p-5 shadow-sm">
+              <div className="flex aspect-[4/3] items-center justify-center bg-black/10">
+                <span className="font-condensed text-sm uppercase tracking-widest text-brand-textMuted">
+                  Product Image
+                </span>
+              </div>
+              <span className="mt-4 inline-block bg-brand-sectionGreen px-3 py-1 font-condensed text-xs uppercase tracking-widest text-brand-textOnDark">
+                Tarpon Series
+              </span>
+              <h3 className="mt-3 font-display text-2xl text-brand-textPrimary">
+                Tarpon Silhouette Tee
+              </h3>
+              <p className="mt-1 font-body text-sm text-brand-textMuted">
+                Premium cotton blend · Sizes S–XXL
+              </p>
+              <div className="mt-4 flex items-center justify-between">
+                <span className="font-display text-3xl text-brand-rust">$38</span>
+                <button
+                  type="button"
+                  className="bg-brand-sectionGreen px-5 py-2 font-condensed text-sm font-bold uppercase tracking-widest text-brand-textOnDark transition-colors hover:bg-brand-greenLight"
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </section>
+
+      {/* ──────────────────── SPECIES COLLECTION ──────────────────── */}
+      <section id="species" className="bg-brand-sectionGreen">
+        <div className="mx-auto max-w-7xl px-6 py-20">
+          <p className="font-condensed text-sm uppercase tracking-widest text-brand-textOnDark/50">
+            Browse By Species
+          </p>
+          <h2 className="mt-2 font-display text-5xl text-brand-textOnDark">
+            FIND YOUR FISH
+          </h2>
+
+          <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {SPECIES.map((species) => {
+              const isComingSoon = species.value === null;
+              const cardBody = (
+                <div
+                  className={`flex h-full flex-col items-center gap-4 border border-brand-borderOnDark bg-brand-textOnDark/[0.08] p-8 transition-colors ${
+                    isComingSoon ? "opacity-50" : "group-hover:bg-brand-rust"
+                  }`}
+                >
+                  <div className="h-20 w-20 rounded-full bg-brand-textOnDark/15" />
+                  <span className="font-condensed text-lg uppercase tracking-widest text-brand-textOnDark">
+                    {species.name}
+                  </span>
+                  <span className="font-condensed text-sm uppercase tracking-widest text-brand-textOnDark/60">
+                    {isComingSoon ? "Coming Soon" : "Shop →"}
+                  </span>
+                </div>
+              );
+
+              return isComingSoon ? (
+                <div key={species.name} className="group">
+                  {cardBody}
+                </div>
+              ) : (
+                <Link
+                  key={species.name}
+                  href={`/shop?species=${species.value}`}
+                  className="group"
+                >
+                  {cardBody}
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ──────────────────── FEATURED PRODUCTS ──────────────────── */}
+      <section className="bg-brand-base">
+        <div className="mx-auto max-w-7xl px-6 py-20">
+          <p className="font-condensed text-sm uppercase tracking-widest text-brand-rust">
+            Featured Gear
+          </p>
+          <h2 className="mt-2 font-display text-5xl text-brand-textPrimary">
+            HAND-PICKED FAVORITES
+          </h2>
+
+          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {FEATURED_PRODUCTS.map((product) => (
+              <div key={product.name} className="bg-brand-surface p-5 shadow-sm">
+                <div className="flex aspect-[4/3] items-center justify-center bg-black/10">
+                  <span className="font-condensed text-sm uppercase tracking-widest text-brand-textMuted">
+                    Product Image
+                  </span>
+                </div>
+                <span className="mt-4 inline-block bg-brand-sectionGreen px-3 py-1 font-condensed text-xs uppercase tracking-widest text-brand-textOnDark">
+                  {product.species}
+                </span>
+                <h3 className="mt-3 font-display text-2xl text-brand-textPrimary">
+                  {product.name}
+                </h3>
+                <div className="mt-4 flex items-center justify-between">
+                  <span className="font-display text-3xl text-brand-rust">
+                    {product.price}
+                  </span>
+                  <button
+                    type="button"
+                    className="bg-brand-sectionGreen px-5 py-2 font-condensed text-sm font-bold uppercase tracking-widest text-brand-textOnDark transition-colors hover:bg-brand-greenLight"
+                  >
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10">
+            <Link
+              href="/shop"
+              className="font-condensed text-sm font-bold uppercase tracking-widest text-brand-rust transition-colors hover:text-brand-rustHover"
+            >
+              View All Products →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ──────────────────────── BRAND STORY ──────────────────────── */}
+      <section className="bg-brand-navBg">
+        <div className="mx-auto flex max-w-7xl flex-col gap-10 px-6 py-20 lg:flex-row lg:items-center">
+          <div className="lg:flex-1">
+            <p className="font-condensed text-sm uppercase tracking-widest text-brand-rust">
+              Our Story
+            </p>
+            <h2 className="mt-3 font-display text-[64px] leading-[0.95] text-brand-textOnDark">
+              BUILT FOR THE TIDE.
+            </h2>
+            <div className="mt-5 max-w-xl space-y-4 font-body text-brand-textOnDark/70">
+              <p>
+                Reel Purpose was born on the water. Every design is tied to a
+                species, a place, and a reason to fish.
+              </p>
+              <p>Luca&apos;s brand. Florida&apos;s soul.</p>
+            </div>
+            <Link
+              href="/about"
+              className="mt-7 inline-block font-condensed text-sm font-bold uppercase tracking-widest text-brand-rust transition-colors hover:text-brand-rustHover"
+            >
+              Learn More →
+            </Link>
+          </div>
+
+          {/* Decorative accent */}
+          <div className="lg:flex-1">
+            <div className="flex aspect-[4/3] items-center justify-center border border-brand-borderOnDark bg-brand-textOnDark/[0.04]">
+              <span className="font-condensed text-sm uppercase tracking-widest text-brand-textOnDark/40">
+                Reel Purpose
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
