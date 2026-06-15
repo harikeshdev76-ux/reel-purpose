@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx create-next-app@14 . --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --no-turbopack)",
+      "Bash(npx create-next-app@14 . --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --no-turbo)",
+      "Bash(npx create-next-app@14 audiodj-generator --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --no-turbo)",
+      "Bash(npm install:*)",
+      "Bash(npm run:*)",
+      "Bash(cp -r audiodj-generator/src .)",
+      "Bash(cp -r audiodj-generator/public/. public/)",
+      "Bash(cp audiodj-generator/package.json .)",
+      "Bash(cp audiodj-generator/package-lock.json .)",
+      "Bash(cp audiodj-generator/next.config.mjs .)",
+      "Bash(cd:*)",
+      "Bash(ffmpeg -version)",
+      "Bash(where ffmpeg:*)",
+      "Bash(winget install:*)",
+      "Bash(choco --version)",
+      "Bash(powershell -Command \"winget install Gyan.FFmpeg --accept-package-agreements --accept-source-agreements\" 2>&1)",
+      "Bash(powershell -Command \"ffmpeg -version\")",
+      "Bash(powershell -ExecutionPolicy Bypass -File \"C:/Users/NIHAR BH/Desktop/AudioDrops/install-ffmpeg.ps1\" 2>&1)",
+      "Bash(npx tsc:*)",
+      "Bash(export PATH=\"$PATH:/c/Users/NIHAR BH/ffmpeg/ffmpeg-8.1.1-essentials_build/bin\")",
+      "Bash(npx next:*)",
+      "Bash(python:*)",
+      "Bash(npx -p typescript tsc --noEmit)",
+      "Bash(./node_modules/.bin/next build:*)",
+      "Bash(ls node_modules/.bin/next*)",
+      "Bash(findstr /i format)"
+    ]
+  },
+  "enabledMcpjsonServers": [
+    "claude-flow",
+    "github"
+  ]
+}
