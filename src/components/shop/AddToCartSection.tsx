@@ -17,6 +17,7 @@ export default function AddToCartSection({ product }: { product: Product }) {
       productName: product.name,
       productSlug: product.slug,
       imageUrl: product.imageUrl,
+      species: product.species,
       price: product.price,
       size: selected,
       quantity: 1,

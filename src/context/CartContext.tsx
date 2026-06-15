@@ -8,13 +8,14 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import type { Size } from "@prisma/client";
+import type { Size, Species } from "@prisma/client";
 
 export type CartItem = {
   productId: string;
   productName: string;
   productSlug: string;
   imageUrl: string;
+  species: Species;
   price: number; // cents
   size: Size;
   quantity: number;
@@ -24,6 +25,7 @@ type CartContextValue = {
   items: CartItem[];
   addItem: (item: CartItem) => void;
   removeItem: (productId: string, size: Size) => void;
+  updateQuantity: (productId: string, size: Size, quantity: number) => void;
   clearCart: () => void;
   totalItems: number;
   subtotal: number;
@@ -82,6 +84,22 @@ export function CartProvider({ children }: { children: ReactNode }) {
     );
   }, []);
 
+  const updateQuantity = useCallback(
+    (productId: string, size: Size, quantity: number) => {
+      setItems((prev) => {
+        if (quantity <= 0) {
+          return prev.filter(
+            (i) => !(i.productId === productId && i.size === size),
+          );
+        }
+        return prev.map((i) =>
+          i.productId === productId && i.size === size ? { ...i, quantity } : i,
+        );
+      });
+    },
+    [],
+  );
+
   const clearCart = useCallback(() => setItems([]), []);
 
   const totalItems = items.reduce((sum, i) => sum + i.quantity, 0);
@@ -89,7 +107,15 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   return (
     <CartContext.Provider
-      value={{ items, addItem, removeItem, clearCart, totalItems, subtotal }}
+      value={{
+        items,
+        addItem,
+        removeItem,
+        updateQuantity,
+        clearCart,
+        totalItems,
+        subtotal,
+      }}
     >
       {children}
     </CartContext.Provider>
