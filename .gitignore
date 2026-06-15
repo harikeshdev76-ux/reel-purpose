@@ -30,9 +30,6 @@ yarn-error.log*
 .env*.local
 !.env.example
 
-# prisma
-/prisma/migrations
-
 # vercel
 .vercel
 
