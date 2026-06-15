@@ -6,7 +6,7 @@ const FOOTER_COLUMNS = [
     links: [
       { label: "Collections", href: "/shop" },
       { label: "Species", href: "/#species" },
-      { label: "Apparel", href: "/shop?type=tshirt" },
+      { label: "Apparel", href: "/shop?type=TSHIRT" },
     ],
   },
   {

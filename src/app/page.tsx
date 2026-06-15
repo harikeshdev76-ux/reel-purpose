@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { prisma } from "@/lib/prisma";
+import FeaturedProducts from "@/components/shop/FeaturedProducts";
 
 const SPECIES = [
   { name: "Tarpon", value: "TARPON" },
@@ -9,13 +11,13 @@ const SPECIES = [
   { name: "Coming Soon", value: null },
 ];
 
-const FEATURED_PRODUCTS = [
-  { name: "Tarpon Silhouette Tee", species: "Tarpon Series", price: "$38" },
-  { name: "Snook Strike Hat", species: "Snook Series", price: "$32" },
-  { name: "Redfish Tail Tee", species: "Redfish Series", price: "$38" },
-];
+export default async function Home() {
+  const featuredProducts = await prisma.product.findMany({
+    where: { featured: true, active: true },
+    take: 3,
+    orderBy: { createdAt: "asc" },
+  });
 
-export default function Home() {
   return (
     <>
       {/* ───────────────────────── HERO ───────────────────────── */}
@@ -137,34 +139,7 @@ export default function Home() {
             HAND-PICKED FAVORITES
           </h2>
 
-          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {FEATURED_PRODUCTS.map((product) => (
-              <div key={product.name} className="bg-brand-surface p-5 shadow-sm">
-                <div className="flex aspect-[4/3] items-center justify-center bg-black/10">
-                  <span className="font-condensed text-sm uppercase tracking-widest text-brand-textMuted">
-                    Product Image
-                  </span>
-                </div>
-                <span className="mt-4 inline-block bg-brand-sectionGreen px-3 py-1 font-condensed text-xs uppercase tracking-widest text-brand-textOnDark">
-                  {product.species}
-                </span>
-                <h3 className="mt-3 font-display text-2xl text-brand-textPrimary">
-                  {product.name}
-                </h3>
-                <div className="mt-4 flex items-center justify-between">
-                  <span className="font-display text-3xl text-brand-rust">
-                    {product.price}
-                  </span>
-                  <button
-                    type="button"
-                    className="bg-brand-sectionGreen px-5 py-2 font-condensed text-sm font-bold uppercase tracking-widest text-brand-textOnDark transition-colors hover:bg-brand-greenLight"
-                  >
-                    Add to Cart
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
+          <FeaturedProducts products={featuredProducts} />
 
           <div className="mt-10">
             <Link

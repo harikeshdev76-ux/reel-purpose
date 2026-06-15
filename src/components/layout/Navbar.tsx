@@ -1,32 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useCart } from "@/context/CartContext";
 
 const NAV_LINKS = [
   { label: "Collections", href: "/shop" },
   { label: "Species", href: "/#species" },
   { label: "Our Story", href: "/about" },
-  { label: "Apparel", href: "/shop?type=tshirt" },
+  { label: "Apparel", href: "/shop?type=TSHIRT" },
 ];
 
-type CartItem = { quantity?: number };
-
 export default function Navbar() {
-  const [cartCount, setCartCount] = useState(0);
+  const { totalItems: cartCount } = useCart();
   const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    try {
-      const raw = localStorage.getItem("cart");
-      if (!raw) return;
-      const items: CartItem[] = JSON.parse(raw);
-      const count = items.reduce((sum, item) => sum + (item.quantity ?? 1), 0);
-      setCartCount(count);
-    } catch {
-      setCartCount(0);
-    }
-  }, []);
 
   return (
     <header className="sticky top-0 z-50 bg-brand-navBg">
