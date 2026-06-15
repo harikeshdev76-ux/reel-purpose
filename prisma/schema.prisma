@@ -1,0 +1,92 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  description String
+  species     Species
+  type        ProductType
+  price       Int      // Cents (e.g. 3800 = $38.00)
+  sizes       Size[]
+  imageUrl    String
+  featured    Boolean  @default(false)
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  orderItems  OrderItem[]
+}
+
+model Order {
+  id              String      @id @default(cuid())
+  orderNumber     String      @unique // e.g. RP-2026-0001
+  stripeSessionId String      @unique
+  customerName    String
+  customerEmail   String
+  shippingAddress Json        // { line1, line2, city, state, zip, country }
+  subtotal        Int         // Cents — before tax
+  taxAmount       Int         // Cents — 7% of subtotal
+  total           Int         // Cents — subtotal + tax
+  status          OrderStatus @default(PENDING)
+  vendorPaid      Boolean     @default(false)
+  vendorCost      Int?        // Cents — optional, entered manually by admin
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  items           OrderItem[]
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  productId String
+  size      Size
+  quantity  Int     @default(1)
+  price     Int     // Cents — snapshot at time of purchase
+  order     Order   @relation(fields: [orderId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model AdminUser {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String   // bcrypt hashed
+  createdAt DateTime @default(now())
+}
+
+enum Species {
+  TARPON
+  SNOOK
+  REDFISH
+  TUNA_MAHI
+  BASS
+  COMING_SOON
+}
+
+enum ProductType {
+  TSHIRT
+  HAT
+  ACCESSORY
+}
+
+enum Size {
+  S
+  M
+  L
+  XL
+  XXL
+  ONE_SIZE
+}
+
+enum OrderStatus {
+  PENDING
+  FULFILLED
+  SHIPPED
+}

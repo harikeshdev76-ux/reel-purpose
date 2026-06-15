@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Marshland design tokens — mirrors tailwind.config.ts */
+  --brand-nav-bg: #1e2e1a;
+  --brand-section-green: #2d5228;
+  --brand-green-light: #4a7a42;
+  --brand-rust: #b8541e;
+  --brand-rust-hover: #9e4518;
+  --brand-base: #f5f1ea;
+  --brand-surface: #ffffff;
+  --brand-text-primary: #1e2e1a;
+  --brand-text-muted: rgba(30, 46, 26, 0.5);
+  --brand-text-on-dark: #f5f1ea;
+  --brand-border: rgba(30, 46, 26, 0.08);
+  --brand-border-on-dark: rgba(245, 241, 234, 0.15);
+}
+
+body {
+  background-color: var(--brand-base);
+  color: var(--brand-text-primary);
+  font-family: 'Barlow', sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
