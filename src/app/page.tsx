@@ -162,18 +162,20 @@ export default async function Home() {
             <h2 className="mt-3 font-display text-[64px] leading-[0.95] text-brand-textOnDark">
               BUILT FOR THE TIDE.
             </h2>
-            <div className="mt-5 max-w-xl space-y-4 font-body text-brand-textOnDark/70">
+            <div className="mt-5 max-w-xl space-y-3 font-body text-brand-textOnDark/70">
               <p>
-                Reel Purpose was born on the water. Every design is tied to a
-                species, a place, and a reason to fish.
+                Founded by Luca Giallombardo — built on faith, family, and a
+                love for the water.
               </p>
-              <p>Luca&apos;s brand. Florida&apos;s soul.</p>
+              <p className="font-display text-xl text-brand-rust">
+                More than fishing. It&apos;s a purpose. 🎣🌊
+              </p>
             </div>
             <Link
               href="/about"
               className="mt-7 inline-block font-condensed text-sm font-bold uppercase tracking-widest text-brand-rust transition-colors hover:text-brand-rustHover"
             >
-              Learn More →
+              Read Our Story →
             </Link>
           </div>
 
