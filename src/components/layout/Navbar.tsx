@@ -16,21 +16,26 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full overflow-visible bg-[rgba(13,17,23,0.92)] backdrop-blur-sm">
-      <nav className="mx-auto flex h-14 max-w-7xl items-center justify-between overflow-visible px-6">
-        {/* Logo — intentionally overflows the slim bar above and below */}
-        <Link href="/" className="flex items-center" aria-label="Reel Purpose home">
+      <nav className="relative mx-auto flex h-14 max-w-7xl items-center justify-end overflow-visible px-6">
+        {/* Logo — absolutely positioned, centered on the nav midline so it
+            overflows the slim bar equally above and below (out of flow,
+            independent of any parent overflow). */}
+        <Link
+          href="/"
+          aria-label="Reel Purpose home"
+          className="absolute left-6 top-1/2 z-10 -translate-y-1/2"
+        >
           <Image
             src="/Reel_purpose_Logo_Transparent_1.png"
             alt="Reel Purpose"
-            width={150}
-            height={110}
+            width={130}
+            height={100}
             priority
-            className="mb-[-27px] mt-[-27px]"
           />
         </Link>
 
-        {/* Desktop nav links + CTA + cart */}
-        <div className="flex h-14 items-center gap-8">
+        {/* Desktop nav links + CTA + cart — padded left to clear the logo */}
+        <div className="flex h-14 items-center gap-8 pl-[170px]">
           <ul className="hidden items-center gap-8 md:flex">
             {NAV_LINKS.map((link) => (
               <li key={link.label}>
