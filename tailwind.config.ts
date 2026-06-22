@@ -29,6 +29,15 @@ const config: Config = {
         condensed: ["Barlow Condensed", "sans-serif"],
         body: ["Barlow", "sans-serif"],
       },
+      keyframes: {
+        marquee: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
+      },
+      animation: {
+        marquee: "marquee 30s linear infinite",
+      },
     },
   },
   plugins: [],
