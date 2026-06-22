@@ -15,43 +15,39 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full overflow-visible bg-[rgba(13,17,23,0.92)] pt-6 backdrop-blur-sm">
-      <nav className="relative mx-auto flex h-14 max-w-7xl items-center justify-end overflow-visible px-6">
-        {/* Logo — absolutely positioned, centered on the nav midline so it
-            overflows the slim bar equally above and below (out of flow,
-            independent of any parent overflow). */}
-        <Link
-          href="/"
-          aria-label="Reel Purpose home"
-          className="absolute left-6 top-1/2 z-10 -translate-y-1/2"
-        >
+    <header className="sticky top-0 z-50 w-full bg-[rgba(13,17,23,0.92)] px-8 py-3 backdrop-blur-sm">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between">
+        {/* Logo — large; sets the navbar height naturally */}
+        <Link href="/" aria-label="Reel Purpose home">
           <Image
             src="/Reel_purpose_Logo_Transparent_1.png"
             alt="Reel Purpose"
-            width={130}
-            height={100}
+            width={180}
+            height={140}
             priority
+            className="object-contain"
           />
         </Link>
 
-        {/* Desktop nav links + CTA + cart — padded left to clear the logo */}
-        <div className="flex h-14 items-center gap-8 pl-[170px]">
-          <ul className="hidden items-center gap-8 md:flex">
-            {NAV_LINKS.map((link) => (
-              <li key={link.label}>
-                <Link
-                  href={link.href}
-                  className="font-condensed text-sm uppercase tracking-widest text-[rgba(240,230,211,0.65)] transition-colors hover:text-[#c9a84c]"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+        {/* Center nav links */}
+        <ul className="hidden items-center gap-10 md:flex">
+          {NAV_LINKS.map((link) => (
+            <li key={link.label}>
+              <Link
+                href={link.href}
+                className="font-condensed text-sm uppercase tracking-widest text-[rgba(240,230,211,0.65)] transition-colors hover:text-[#c9a84c]"
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
 
+        {/* Right: Shop Now pill + cart + hamburger */}
+        <div className="flex items-center gap-4">
           <Link
             href="/shop"
-            className="hidden rounded-full bg-[#c9a84c] px-6 py-2 font-condensed text-sm font-bold uppercase tracking-widest text-[#0d1117] transition-colors hover:bg-[#b8952e] md:inline-block"
+            className="hidden rounded-full bg-[#c9a84c] px-6 py-2.5 font-condensed text-sm font-bold uppercase tracking-widest text-[#0d1117] transition-colors hover:bg-[#b8952e] md:inline-block"
           >
             Shop Now
           </Link>
@@ -114,7 +110,7 @@ export default function Navbar() {
       {/* Mobile menu */}
       {menuOpen && (
         <div className="border-t border-[rgba(201,168,76,0.25)] md:hidden">
-          <ul className="flex flex-col gap-1 px-6 py-4">
+          <ul className="flex flex-col gap-1 py-4">
             {NAV_LINKS.map((link) => (
               <li key={link.label}>
                 <Link
@@ -130,7 +126,7 @@ export default function Navbar() {
               <Link
                 href="/shop"
                 onClick={() => setMenuOpen(false)}
-                className="mt-2 block rounded-full bg-[#c9a84c] px-6 py-2 text-center font-condensed text-sm font-bold uppercase tracking-widest text-[#0d1117] transition-colors hover:bg-[#b8952e]"
+                className="mt-2 block rounded-full bg-[#c9a84c] px-6 py-2.5 text-center font-condensed text-sm font-bold uppercase tracking-widest text-[#0d1117] transition-colors hover:bg-[#b8952e]"
               >
                 Shop Now
               </Link>
