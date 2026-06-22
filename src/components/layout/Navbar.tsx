@@ -38,10 +38,9 @@ export default function Navbar() {
             <Image
               src="/Reel_purpose_Logo_Transparent_1.png"
               alt="Reel Purpose"
-              width={180}
-              height={52}
+              width={200}
+              height={80}
               priority
-              className="h-[52px] w-auto"
             />
           </Link>
 
