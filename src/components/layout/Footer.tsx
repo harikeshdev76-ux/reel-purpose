@@ -5,17 +5,14 @@ const FOOTER_COLUMNS = [
   {
     heading: "Shop",
     links: [
-      { label: "Collections", href: "/shop" },
-      { label: "Species", href: "/#species" },
+      { label: "Shop All", href: "/shop" },
       { label: "Apparel", href: "/shop?type=TSHIRT" },
+      { label: "Hats", href: "/shop?type=HAT" },
     ],
   },
   {
     heading: "Company",
-    links: [
-      { label: "Our Story", href: "/about" },
-      { label: "Contact", href: "/contact" },
-    ],
+    links: [{ label: "Our Story", href: "/about" }],
   },
 ];
 
@@ -24,16 +21,16 @@ export default function Footer() {
 
   return (
     <footer className="border-t border-[rgba(201,168,76,0.15)] bg-[#0d1117]">
-      <div className="mx-auto max-w-7xl px-6 py-14">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
+      <div className="mx-auto max-w-7xl px-6 py-8">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {/* Brand */}
           <div className="md:col-span-1">
             <Link href="/" className="inline-flex items-center" aria-label="Reel Purpose home">
               <Image
                 src="/Reel_purpose_Logo_Transparent_1.png"
                 alt="Reel Purpose"
-                width={160}
-                height={64}
+                width={120}
+                height={88}
               />
             </Link>
             <p className="mt-3 font-condensed text-sm uppercase tracking-widest text-[rgba(240,230,211,0.55)]">
@@ -66,7 +63,7 @@ export default function Footer() {
 
       {/* Bottom bar */}
       <div className="border-t border-[rgba(201,168,76,0.15)]">
-        <div className="mx-auto max-w-7xl px-6 py-5">
+        <div className="mx-auto max-w-7xl px-6 py-3">
           <p className="font-condensed text-xs uppercase tracking-widest text-[rgba(240,230,211,0.55)]">
             © {year} Reel Purpose · Florida Fishing Apparel
           </p>

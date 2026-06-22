@@ -15,35 +15,35 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-[rgba(13,17,23,0.95)] backdrop-blur-sm">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
-        {/* Logo */}
+    <header className="sticky top-0 z-50 w-full overflow-visible bg-[rgba(13,17,23,0.92)] backdrop-blur-sm">
+      <nav className="mx-auto flex h-14 max-w-7xl items-center justify-between overflow-visible px-6">
+        {/* Logo — intentionally overflows the slim bar above and below */}
         <Link href="/" className="flex items-center" aria-label="Reel Purpose home">
           <Image
             src="/Reel_purpose_Logo_Transparent_1.png"
             alt="Reel Purpose"
-            width={200}
-            height={80}
+            width={150}
+            height={110}
             priority
+            className="mb-[-27px] mt-[-27px]"
           />
         </Link>
 
-        {/* Desktop nav links */}
-        <ul className="hidden items-center gap-8 md:flex">
-          {NAV_LINKS.map((link) => (
-            <li key={link.label}>
-              <Link
-                href={link.href}
-                className="font-condensed text-sm uppercase tracking-widest text-[rgba(240,230,211,0.65)] transition-colors hover:text-[#c9a84c]"
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        {/* Desktop nav links + CTA + cart */}
+        <div className="flex h-14 items-center gap-8">
+          <ul className="hidden items-center gap-8 md:flex">
+            {NAV_LINKS.map((link) => (
+              <li key={link.label}>
+                <Link
+                  href={link.href}
+                  className="font-condensed text-sm uppercase tracking-widest text-[rgba(240,230,211,0.65)] transition-colors hover:text-[#c9a84c]"
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
 
-        {/* Right side: CTA + cart + hamburger */}
-        <div className="flex items-center gap-4">
           <Link
             href="/shop"
             className="hidden rounded-full bg-[#c9a84c] px-6 py-2 font-condensed text-sm font-bold uppercase tracking-widest text-[#0d1117] transition-colors hover:bg-[#b8952e] md:inline-block"
