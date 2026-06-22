@@ -36,7 +36,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-b from-[rgba(13,17,23,0.15)] to-[rgba(13,17,23,0.55)]" />
 
         {/* Bottom-left content */}
-        <div className="absolute bottom-[10%] left-[6%] z-10 max-w-2xl">
+        <div className="absolute bottom-[10%] left-[6%] z-10 max-w-2xl pb-28">
           <h1 className="font-display leading-[0.9] text-[64px] md:text-[100px]">
             <span className="block text-[#f0e6d3]">FISHING</span>
             <span className="block text-[#f0e6d3]">WITH</span>
