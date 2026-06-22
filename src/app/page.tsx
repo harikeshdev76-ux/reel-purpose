@@ -22,7 +22,7 @@ export default function Home() {
   return (
     <>
       {/* ───────────────────────── HERO ───────────────────────── */}
-      <section className="relative min-h-[calc(100vh-164px)] w-full overflow-hidden">
+      <section className="relative min-h-[calc(100vh-164px)] w-full overflow-hidden bg-[#0d1117]">
         {/* Background image — clean (no baked-in text); boat is centered */}
         <Image
           src="/background_with_no_logo.png"
@@ -30,6 +30,8 @@ export default function Home() {
           fill
           priority
           sizes="100vw"
+          placeholder="blur"
+          blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAIABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAACQYK/8QAIRAAAQMEAgMAAAAAAAAAAAAAAQIDBAAFERIhMUH/xAAUAQEAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCwyWtdVc1VuVelqalSy6tUthBWVEnJJJyT70pSlSuJf//Z"
           className="object-cover object-center"
         />
         {/* Cinematic overlay — bright sky, darkened bottom where text sits */}
@@ -37,7 +39,15 @@ export default function Home() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to bottom, rgba(13,17,23,0.15) 0%, rgba(13,17,23,0.25) 50%, rgba(13,17,23,0.75) 85%, rgba(13,17,23,0.92) 100%)",
+              "linear-gradient(to bottom, rgba(13,17,23,0.2) 0%, rgba(13,17,23,0.35) 40%, rgba(13,17,23,0.72) 70%, rgba(13,17,23,0.92) 100%)",
+          }}
+        />
+        {/* Left-side vignette — darkens bottom-left where desktop text sits */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to right, rgba(13,17,23,0.45) 0%, rgba(13,17,23,0.0) 60%)",
           }}
         />
 
@@ -67,13 +77,13 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Bottom marquee ticker — hidden on mobile (too cramped) */}
-        <div className="absolute bottom-0 left-0 z-10 hidden w-full overflow-hidden border-t border-[rgba(201,168,76,0.3)] bg-[rgba(13,17,23,0.75)] py-3 md:block">
+        {/* Bottom marquee ticker — shown on all sizes for a finished bottom edge */}
+        <div className="absolute bottom-0 left-0 z-10 block w-full overflow-hidden border-t border-[rgba(201,168,76,0.3)] bg-[rgba(13,17,23,0.75)] py-2 md:py-3">
           <div className="flex w-max animate-marquee whitespace-nowrap">
             {Array.from({ length: 6 }).map((_, i) => (
               <span
                 key={i}
-                className="px-2 font-condensed text-sm uppercase tracking-widest text-[#c9a84c]"
+                className="px-2 font-condensed text-[10px] uppercase tracking-widest text-[#c9a84c] md:text-sm"
               >
                 {MARQUEE_PHRASE}
               </span>
