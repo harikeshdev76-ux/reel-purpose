@@ -15,7 +15,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full overflow-visible bg-[rgba(13,17,23,0.92)] backdrop-blur-sm">
+    <header className="sticky top-0 z-50 w-full overflow-visible bg-[rgba(13,17,23,0.92)] pt-6 backdrop-blur-sm">
       <nav className="relative mx-auto flex h-14 max-w-7xl items-center justify-end overflow-visible px-6">
         {/* Logo — absolutely positioned, centered on the nav midline so it
             overflows the slim bar equally above and below (out of flow,
