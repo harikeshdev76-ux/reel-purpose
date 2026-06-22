@@ -22,47 +22,53 @@ export default function Home() {
   return (
     <>
       {/* ───────────────────────── HERO ───────────────────────── */}
-      <section className="relative min-h-screen w-full overflow-hidden">
-        {/* Background image */}
+      <section className="relative min-h-[calc(100vh-164px)] w-full overflow-hidden">
+        {/* Background image — clean (no baked-in text); boat is centered */}
         <Image
           src="/background_with_no_logo.png"
-          alt="Florida mangrove shoreline at dusk"
+          alt="Florida sunset over the water"
           fill
           priority
           sizes="100vw"
-          className="object-cover"
+          className="object-cover object-center"
         />
-        {/* Cinematic overlay — let the image breathe */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[rgba(13,17,23,0.15)] to-[rgba(13,17,23,0.55)]" />
+        {/* Cinematic overlay — bright sky, darkened bottom where text sits */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(13,17,23,0.15) 0%, rgba(13,17,23,0.25) 50%, rgba(13,17,23,0.75) 85%, rgba(13,17,23,0.92) 100%)",
+          }}
+        />
 
-        {/* Bottom-left content */}
-        <div className="absolute bottom-[10%] left-[6%] z-10 max-w-2xl pb-28">
-          <h1 className="font-display leading-[0.9] text-[64px] md:text-[100px]">
+        {/* Bottom content — full width, responsive padding */}
+        <div className="absolute bottom-0 left-0 right-0 z-10 px-6 pb-20 md:px-12 md:pb-24 lg:px-16">
+          <h1 className="font-display leading-[0.9] text-[56px] md:text-[80px] lg:text-[108px]">
             <span className="block text-[#f0e6d3]">FISHING</span>
             <span className="block text-[#f0e6d3]">WITH</span>
             <span className="block text-[#c9a84c]">PURPOSE.</span>
           </h1>
-          <p className="mt-4 font-condensed text-sm uppercase tracking-[0.25em] text-[#7eb8a4]">
+          <p className="mt-2 font-condensed text-xs uppercase tracking-[0.2em] text-[#7eb8a4] md:mt-3 md:text-sm">
             Built in Florida. Made for life.
           </p>
-          <div className="mt-6 flex flex-wrap gap-4">
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:gap-4 md:mt-8">
             <Link
               href="/shop?type=TSHIRT"
-              className="rounded-full bg-[#c9a84c] px-8 py-3 font-condensed text-sm font-bold uppercase tracking-widest text-[#0d1117] transition-colors hover:bg-[#b8952e]"
+              className="w-full rounded-full bg-[#c9a84c] px-8 py-3 text-center font-condensed text-sm font-bold uppercase tracking-widest text-[#0d1117] transition-colors hover:bg-[#b8952e] sm:w-auto"
             >
               Shop Apparel
             </Link>
             <Link
               href="/about"
-              className="rounded-full border-[1.5px] border-[#f0e6d3] px-8 py-3 font-condensed text-sm font-bold uppercase tracking-widest text-[#f0e6d3] transition-colors hover:border-[#c9a84c] hover:text-[#c9a84c]"
+              className="w-full rounded-full border border-[#f0e6d3] px-8 py-3 text-center font-condensed text-sm font-bold uppercase tracking-widest text-[#f0e6d3] transition-colors hover:border-[#c9a84c] hover:text-[#c9a84c] sm:w-auto"
             >
               Our Story
             </Link>
           </div>
         </div>
 
-        {/* Bottom marquee ticker */}
-        <div className="absolute bottom-0 left-0 z-10 w-full overflow-hidden border-t border-[rgba(201,168,76,0.3)] bg-[rgba(13,17,23,0.75)] py-3">
+        {/* Bottom marquee ticker — hidden on mobile (too cramped) */}
+        <div className="absolute bottom-0 left-0 z-10 hidden w-full overflow-hidden border-t border-[rgba(201,168,76,0.3)] bg-[rgba(13,17,23,0.75)] py-3 md:block">
           <div className="flex w-max animate-marquee whitespace-nowrap">
             {Array.from({ length: 6 }).map((_, i) => (
               <span
