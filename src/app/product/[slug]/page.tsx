@@ -82,7 +82,23 @@ export default async function ProductPage({ params }: ProductPageProps) {
               {product.description}
             </p>
 
-            <AddToCartSection product={product} />
+            {product.inStock ? (
+              <AddToCartSection product={product} />
+            ) : (
+              <div className="mt-6">
+                <span className="inline-block bg-[#f87171]/15 px-3 py-1 font-condensed text-xs uppercase tracking-widest text-[#f87171]">
+                  Out of Stock
+                </span>
+                <button
+                  type="button"
+                  disabled
+                  aria-disabled="true"
+                  className="mt-4 block w-full cursor-not-allowed bg-[rgba(30,46,26,0.15)] px-7 py-3 font-condensed text-sm font-bold uppercase tracking-widest text-brand-textMuted"
+                >
+                  Out of Stock
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

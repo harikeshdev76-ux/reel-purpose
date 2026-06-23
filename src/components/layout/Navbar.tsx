@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { useCart } from "@/context/CartContext";
 
@@ -13,6 +14,12 @@ const NAV_LINKS = [
 export default function Navbar() {
   const { totalItems: cartCount } = useCart();
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  // Admin/vendor surfaces have their own chrome — hide the public navbar there.
+  if (pathname?.startsWith("/admin") || pathname?.startsWith("/vendor")) {
+    return null;
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full bg-[rgba(13,17,23,0.92)] px-8 py-3 backdrop-blur-sm">

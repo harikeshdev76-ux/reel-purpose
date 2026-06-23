@@ -71,6 +71,30 @@ async function main() {
     console.log(`Seeded admin: ${admin.name} <${admin.email}>`);
   }
 
+  // Vendor identity is read from env vars (same pattern as admins) so no
+  // credential is committed to git. Set VENDOR_EMAIL / VENDOR_PASSWORD in .env.
+  // Skipped (not fatal) when unset so product/admin seeding still succeeds.
+  const vendorEmail = process.env.VENDOR_EMAIL;
+  const vendorPassword = process.env.VENDOR_PASSWORD;
+  if (vendorEmail && vendorPassword) {
+    const hashedVendorPassword = await bcrypt.hash(vendorPassword, 12);
+    await prisma.vendor.upsert({
+      where: { email: vendorEmail },
+      update: { name: "Vendor", password: hashedVendorPassword, active: true },
+      create: {
+        name: "Vendor",
+        email: vendorEmail,
+        password: hashedVendorPassword,
+        active: true,
+      },
+    });
+    console.log(`Seeded vendor: <${vendorEmail}>`);
+  } else {
+    console.warn(
+      "Skipped vendor seed — set VENDOR_EMAIL and VENDOR_PASSWORD in .env to seed the vendor.",
+    );
+  }
+
   for (const product of products) {
     const isTee = product.type === ProductType.TSHIRT;
     const slug = slugify(product.name);

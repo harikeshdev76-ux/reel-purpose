@@ -10,7 +10,11 @@ export default function ProductCard({ product }: { product: Product }) {
       href={`/product/${product.slug}`}
       className="group block transition-transform duration-200 hover:scale-[1.01]"
     >
-      <article className="overflow-hidden border border-brand-border bg-brand-surface">
+      <article
+        className={`overflow-hidden border border-brand-border bg-brand-surface ${
+          product.inStock ? "" : "opacity-75"
+        }`}
+      >
         <div className="relative aspect-square bg-black/10">
           <Image
             src={product.imageUrl}
@@ -19,6 +23,13 @@ export default function ProductCard({ product }: { product: Product }) {
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="object-cover"
           />
+          {!product.inStock && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/45">
+              <span className="bg-[#f87171]/90 px-3 py-1 font-condensed text-xs font-bold uppercase tracking-widest text-white">
+                Out of Stock
+              </span>
+            </div>
+          )}
         </div>
         <div className="p-5">
           <span className="inline-block bg-brand-sectionGreen px-3 py-1 font-condensed text-xs uppercase tracking-widest text-brand-textOnDark">

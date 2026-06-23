@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 const FOOTER_COLUMNS = [
   {
@@ -18,6 +21,12 @@ const FOOTER_COLUMNS = [
 
 export default function Footer() {
   const year = new Date().getFullYear();
+  const pathname = usePathname();
+
+  // Admin/vendor surfaces have their own chrome — hide the public footer there.
+  if (pathname?.startsWith("/admin") || pathname?.startsWith("/vendor")) {
+    return null;
+  }
 
   return (
     <footer className="border-t border-[rgba(201,168,76,0.15)] bg-[#0d1117]">
