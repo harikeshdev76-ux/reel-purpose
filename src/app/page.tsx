@@ -22,7 +22,7 @@ export default function Home() {
   return (
     <>
       {/* ───────────────────────── HERO ───────────────────────── */}
-      <section className="relative min-h-[calc(100vh-164px)] w-full overflow-hidden bg-[#0d1117]">
+      <section className="relative flex min-h-[calc(100vh-164px)] w-full flex-col justify-end overflow-hidden bg-[#0d1117]">
         {/* Background image — clean (no baked-in text); boat is centered */}
         <Image
           src="/background_with_no_logo.png"
@@ -51,9 +51,9 @@ export default function Home() {
           }}
         />
 
-        {/* Bottom content — full width, responsive padding */}
-        <div className="absolute bottom-0 left-0 right-0 z-10 px-6 pb-20 md:px-12 md:pb-24 lg:px-16">
-          <h1 className="font-display leading-[0.9] text-[56px] md:text-[80px] lg:text-[108px]">
+        {/* Bottom content — flex child pinned to bottom by justify-end */}
+        <div className="relative z-10 px-6 pb-20 md:px-12 md:pb-24 lg:px-16">
+          <h1 className="font-display leading-[0.9] text-[min(56px,10vh)] md:text-[min(80px,12vh)] lg:text-[min(108px,13vh)]">
             <span className="block text-[#f0e6d3]">FISHING</span>
             <span className="block text-[#f0e6d3]">WITH</span>
             <span className="block text-[#c9a84c]">PURPOSE.</span>
