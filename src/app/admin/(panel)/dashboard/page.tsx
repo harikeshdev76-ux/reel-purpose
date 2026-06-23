@@ -1,14 +1,8 @@
 import Link from "next/link";
-import type { OrderStatus } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { formatUSD } from "@/lib/money";
 import StatCard from "@/components/admin/StatCard";
-
-const STATUS_STYLES: Record<OrderStatus, string> = {
-  PENDING: "bg-[rgba(251,146,60,0.15)] text-[#fb923c]",
-  FULFILLED: "bg-[rgba(74,222,128,0.15)] text-[#4ade80]",
-  SHIPPED: "bg-[rgba(201,168,76,0.15)] text-[#c9a84c]",
-};
+import StatusBadge from "@/components/admin/StatusBadge";
 
 function startOfToday(): Date {
   const d = new Date();
@@ -135,11 +129,7 @@ export default async function DashboardPage() {
                       })}
                     </td>
                     <td className="px-4 py-3">
-                      <span
-                        className={`rounded px-2 py-0.5 font-condensed text-xs uppercase ${STATUS_STYLES[order.status]}`}
-                      >
-                        {order.status}
-                      </span>
+                      <StatusBadge status={order.status} />
                     </td>
                   </tr>
                 );
