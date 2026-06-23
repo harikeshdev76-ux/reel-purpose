@@ -7,6 +7,20 @@ import { CartProvider } from "@/context/CartContext";
 export const metadata: Metadata = {
   title: "Reel Purpose",
   description: "Florida fishing apparel",
+  icons: {
+    icon: [
+      {
+        url: "/Reel_purpose_Logo_Transparent_1.png",
+        type: "image/png",
+      },
+    ],
+    apple: [
+      {
+        url: "/Reel_purpose_Logo_Transparent_1.png",
+        type: "image/png",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
