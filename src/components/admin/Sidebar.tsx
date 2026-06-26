@@ -91,14 +91,22 @@ const NAV_ITEMS: NavItem[] = [
 export default function Sidebar({
   userName,
   userEmail,
+  isOpen,
+  onClose,
 }: {
   userName: string;
   userEmail: string;
+  isOpen: boolean;
+  onClose: () => void;
 }) {
   const pathname = usePathname();
 
   return (
-    <aside className="fixed left-0 top-0 z-40 flex h-screen w-64 flex-col border-r border-[rgba(255,255,255,0.08)] bg-[#1a1f2e]">
+    <aside
+      className={`fixed left-0 top-0 z-50 flex h-screen w-72 flex-col border-r border-[rgba(255,255,255,0.08)] bg-[#1a1f2e] transition-transform duration-200 lg:w-64 lg:translate-x-0 ${
+        isOpen ? "translate-x-0" : "-translate-x-full"
+      }`}
+    >
       {/* Top: logo + label */}
       <div className="flex items-center gap-3 border-b border-[rgba(255,255,255,0.08)] px-5 py-5">
         <Image
@@ -115,11 +123,13 @@ export default function Sidebar({
       {/* Nav */}
       <nav className="flex flex-1 flex-col gap-1 py-4">
         {NAV_ITEMS.map((item) => {
-          const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
+          const active =
+            pathname === item.href || pathname.startsWith(`${item.href}/`);
           return (
             <Link
               key={item.href}
               href={item.href}
+              onClick={onClose}
               className={`mx-2 flex items-center gap-3 rounded-md px-4 py-2.5 font-body text-sm transition-colors ${
                 active
                   ? "border-l-2 border-[#c9a84c] bg-[rgba(201,168,76,0.15)] text-[#c9a84c]"

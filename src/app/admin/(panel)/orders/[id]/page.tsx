@@ -71,7 +71,8 @@ export default async function OrderDetailPage({ params }: OrderDetailProps) {
             <p className="mt-6 font-body text-xs uppercase tracking-widest text-[rgba(240,230,211,0.5)]">
               Items
             </p>
-            <table className="mt-2 w-full">
+            <div className="mt-2 overflow-x-auto">
+            <table className="w-full min-w-[480px]">
               <thead>
                 <tr className="text-left">
                   {["Product", "Size", "Qty", "Price", "Line Total"].map((h) => (
@@ -99,6 +100,7 @@ export default async function OrderDetailPage({ params }: OrderDetailProps) {
                 ))}
               </tbody>
             </table>
+            </div>
 
             {/* Totals */}
             <div className="mt-4 flex flex-col items-end gap-1 font-body text-sm">

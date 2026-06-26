@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "@/lib/auth";
-import Sidebar from "@/components/admin/Sidebar";
+import AdminNav from "@/components/admin/AdminNav";
 
 export default async function PanelLayout({
   children,
@@ -15,11 +15,12 @@ export default async function PanelLayout({
 
   return (
     <div className="min-h-screen bg-[#0f1117]">
-      <Sidebar
+      <AdminNav
         userName={session.user?.name ?? ""}
         userEmail={session.user?.email ?? ""}
       />
-      <div className="ml-64 min-h-screen bg-[#0f1117] p-8">{children}</div>
+      {/* Offset for the fixed mobile header (pt-20) and the desktop sidebar (lg:ml-64) */}
+      <div className="p-4 pt-20 sm:p-8 sm:pt-20 lg:ml-64 lg:pt-8">{children}</div>
     </div>
   );
 }

@@ -80,8 +80,8 @@ export default async function DashboardPage() {
 
       {/* Recent orders */}
       <h2 className="mb-4 font-display text-2xl text-[#f0e6d3]">Recent Orders</h2>
-      <div className="overflow-hidden rounded-lg border border-[rgba(255,255,255,0.08)] bg-[#1a1f2e]">
-        <table className="w-full">
+      <div className="overflow-x-auto rounded-lg border border-[rgba(255,255,255,0.08)] bg-[#1a1f2e]">
+        <table className="w-full min-w-[640px]">
           <thead>
             <tr className="bg-[#222840] text-left">
               {["Order #", "Customer", "Items", "Total", "Date", "Status"].map(
