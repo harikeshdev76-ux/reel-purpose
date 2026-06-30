@@ -19,5 +19,6 @@ export const config = {
     "/admin/orders/:path*",
     "/admin/vendors/:path*",
     "/admin/tax/:path*",
+    "/admin/settings/:path*",
   ],
 };
