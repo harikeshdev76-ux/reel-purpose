@@ -101,6 +101,13 @@ export async function POST(req: Request) {
 
     if (orderId) {
       try {
+        // Auto-assign the order to the single active vendor so it appears in
+        // their fulfillment dashboard immediately.
+        const vendor = await prisma.vendor.findFirst({
+          where: { active: true },
+          orderBy: { createdAt: "asc" },
+        });
+
         await prisma.order.update({
           where: { id: orderId },
           data: {
@@ -109,6 +116,7 @@ export async function POST(req: Request) {
             customerEmail: session.customer_details?.email ?? "",
             shippingAddress: extractShipping(session),
             stripeSessionId: session.id,
+            vendorId: vendor?.id ?? null,
           },
         });
 
