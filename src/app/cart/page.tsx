@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 import { useCart } from "@/context/CartContext";
 import { calculateTotal } from "@/lib/tax";
 import { formatPrice } from "@/lib/money";
@@ -12,6 +13,53 @@ export default function CartPage() {
   const { items, removeItem, updateQuantity, subtotal } = useCart();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { data: session } = useSession();
+  const [savedAddress, setSavedAddress] = useState<{
+    line1: string;
+    city: string;
+    state: string;
+    zip: string;
+  } | null>(null);
+
+  // For a logged-in customer, surface their saved shipping address as a hint.
+  useEffect(() => {
+    if (session?.user?.role !== "customer") {
+      setSavedAddress(null);
+      return;
+    }
+    let active = true;
+    fetch("/api/account/address")
+      .then((r) => r.json())
+      .then(
+        (d: {
+          address?: {
+            line1?: string;
+            city?: string;
+            state?: string;
+            zip?: string;
+          } | null;
+        }) => {
+          if (!active) return;
+          const a = d.address;
+          if (a?.line1) {
+            setSavedAddress({
+              line1: a.line1 ?? "",
+              city: a.city ?? "",
+              state: a.state ?? "",
+              zip: a.zip ?? "",
+            });
+          } else {
+            setSavedAddress(null);
+          }
+        },
+      )
+      .catch(() => {
+        if (active) setSavedAddress(null);
+      });
+    return () => {
+      active = false;
+    };
+  }, [session]);
 
   const { tax, total } = calculateTotal(subtotal);
   const isEmpty = items.length === 0;
@@ -170,6 +218,20 @@ export default function CartPage() {
                     {formatPrice(total)}
                   </span>
                 </div>
+                {savedAddress && (
+                  <div className="mt-4 border-t border-brand-border pt-4">
+                    <p className="font-body text-sm text-brand-textMuted">
+                      Shipping to: {savedAddress.line1}, {savedAddress.city},{" "}
+                      {savedAddress.state} {savedAddress.zip}
+                    </p>
+                    <Link
+                      href="/account/settings"
+                      className="font-condensed text-xs uppercase tracking-widest text-brand-rust transition-colors hover:text-brand-rustHover"
+                    >
+                      Change in account settings →
+                    </Link>
+                  </div>
+                )}
                 <button
                   type="button"
                   onClick={handleCheckout}

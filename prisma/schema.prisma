@@ -40,6 +40,8 @@ model Order {
   vendorCost      Int?        // Cents — optional, entered manually by admin
   vendorId        String?
   vendor          Vendor?     @relation(fields: [vendorId], references: [id])
+  customerId      String?
+  customer        Customer?   @relation(fields: [customerId], references: [id])
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @updatedAt
   items           OrderItem[]
@@ -78,6 +80,18 @@ model NewsletterSubscriber {
   id        String   @id @default(cuid())
   email     String   @unique
   createdAt DateTime @default(now())
+}
+
+model Customer {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String   // bcrypt hashed
+  phone     String?
+  address   Json?    // saved shipping address: { line1, city, state, zip }
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  orders    Order[]
 }
 
 enum Species {

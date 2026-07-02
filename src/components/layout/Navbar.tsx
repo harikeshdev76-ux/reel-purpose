@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { useSession } from "next-auth/react";
 import { useCart } from "@/context/CartContext";
 
 const NAV_LINKS = [
@@ -15,6 +16,10 @@ export default function Navbar() {
   const { totalItems: cartCount } = useCart();
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { data: session } = useSession();
+  // Only a customer-role session counts as "logged in" here — admin/vendor
+  // sessions must not surface as a customer in the public nav.
+  const isCustomer = session?.user?.role === "customer";
 
   // Admin/vendor surfaces have their own chrome — hide the public navbar there.
   if (pathname?.startsWith("/admin") || pathname?.startsWith("/vendor")) {
@@ -57,6 +62,31 @@ export default function Navbar() {
             className="hidden rounded-full bg-[#c9a84c] px-6 py-2.5 font-condensed text-sm font-bold uppercase tracking-widest text-[#0d1117] transition-colors hover:bg-[#b8952e] md:inline-block"
           >
             Shop Now
+          </Link>
+
+          <Link
+            href={isCustomer ? "/account" : "/account/login"}
+            aria-label={isCustomer ? "Your account" : "Sign in"}
+            className={`transition-colors ${
+              isCustomer
+                ? "text-[#c9a84c] hover:text-[#b8952e]"
+                : "text-[rgba(240,230,211,0.65)] hover:text-[#c9a84c]"
+            }`}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="h-6 w-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+              />
+            </svg>
           </Link>
 
           <Link

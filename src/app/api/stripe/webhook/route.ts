@@ -117,6 +117,9 @@ export async function POST(req: Request) {
             shippingAddress: extractShipping(session),
             stripeSessionId: session.id,
             vendorId: vendor?.id ?? null,
+            // Reinforce the customer link from checkout metadata (guests omit
+            // it, leaving the field unchanged).
+            customerId: session.metadata?.customerId ?? undefined,
           },
         });
 

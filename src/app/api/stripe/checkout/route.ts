@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
 import type { Size } from "@prisma/client";
+import { getServerSession } from "next-auth";
 import { stripe } from "@/lib/stripe";
 import { prisma } from "@/lib/prisma";
+import { authOptions } from "@/lib/auth";
 import { calculateTotal } from "@/lib/tax";
 
 type IncomingItem = { productId: string; size: Size; quantity: number };
@@ -20,6 +22,22 @@ export async function POST(req: Request) {
     const items = Array.isArray(body?.items) ? body.items : [];
     if (items.length === 0) {
       return NextResponse.json({ error: "Cart is empty" }, { status: 400 });
+    }
+
+    // Link the order to a logged-in customer (guests remain null). Named
+    // authSession to avoid colliding with the Stripe `session` below.
+    const authSession = await getServerSession(authOptions);
+    let customerId: string | null = null;
+    let customerEmail: string | undefined;
+    if (authSession?.user?.role === "customer" && authSession.user.email) {
+      const customer = await prisma.customer.findUnique({
+        where: { email: authSession.user.email },
+        select: { id: true, email: true },
+      });
+      if (customer) {
+        customerId = customer.id;
+        customerEmail = customer.email;
+      }
     }
 
     // Load authoritative prices from the DB — never trust client-sent prices.
@@ -54,6 +72,7 @@ export async function POST(req: Request) {
       data: {
         orderNumber,
         stripeSessionId: `pending_${orderNumber}`,
+        customerId,
         customerName: "",
         customerEmail: "",
         shippingAddress: {},
@@ -73,6 +92,7 @@ export async function POST(req: Request) {
 
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
+      customer_email: customerEmail,
       line_items: [
         ...lineItems.map((li) => ({
           price_data: {
@@ -97,7 +117,10 @@ export async function POST(req: Request) {
       success_url: `${appUrl()}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${appUrl()}/cart`,
       shipping_address_collection: { allowed_countries: ["US"] },
-      metadata: { orderId: order.id },
+      metadata: {
+        orderId: order.id,
+        ...(customerId ? { customerId } : {}),
+      },
     });
 
     await prisma.order.update({

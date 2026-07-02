@@ -18,6 +18,10 @@ export async function middleware(req: NextRequest) {
     if (role !== "admin") {
       return NextResponse.redirect(new URL("/admin", req.url));
     }
+  } else if (pathname.startsWith("/account")) {
+    if (role !== "customer") {
+      return NextResponse.redirect(new URL("/account/login", req.url));
+    }
   }
 
   return NextResponse.next();
@@ -34,5 +38,8 @@ export const config = {
     "/vendor/dashboard/:path*",
     "/vendor/orders/:path*",
     "/vendor/products/:path*",
+    "/account",
+    "/account/orders/:path*",
+    "/account/settings/:path*",
   ],
 };

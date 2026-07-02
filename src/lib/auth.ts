@@ -63,6 +63,35 @@ export const authOptions: NextAuthOptions = {
         };
       },
     }),
+    CredentialsProvider({
+      id: "customer-credentials",
+      name: "customer-credentials",
+      credentials: {
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials) {
+        if (!credentials?.email || !credentials?.password) return null;
+
+        const customer = await prisma.customer.findUnique({
+          where: { email: credentials.email },
+        });
+        if (!customer) return null;
+
+        const valid = await bcrypt.compare(
+          credentials.password,
+          customer.password,
+        );
+        if (!valid) return null;
+
+        return {
+          id: customer.id,
+          name: customer.name,
+          email: customer.email,
+          role: "customer",
+        };
+      },
+    }),
   ],
   callbacks: {
     async jwt({ token, user }) {
