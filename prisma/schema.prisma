@@ -94,6 +94,16 @@ model Customer {
   orders    Order[]
 }
 
+model PurposeStory {
+  id        String      @id @default(cuid())
+  name      String
+  location  String?
+  story     String
+  imageUrl  String?
+  status    StoryStatus @default(PENDING)
+  createdAt DateTime    @default(now())
+}
+
 enum Species {
   TARPON
   SNOOK
@@ -122,4 +132,10 @@ enum OrderStatus {
   PENDING
   FULFILLED
   SHIPPED
+}
+
+enum StoryStatus {
+  PENDING
+  APPROVED
+  REJECTED
 }

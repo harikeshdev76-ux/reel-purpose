@@ -1,6 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
+import { StoryStatus } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
 import NewsletterForm from "@/components/NewsletterForm";
+import StoryCard from "@/components/stories/StoryCard";
+
+// Homepage reads live approved stories, so render on demand rather than statically.
+export const dynamic = "force-dynamic";
 
 const MARQUEE_PHRASE = "— FISHING WITH PURPOSE. BUILT IN FLORIDA. MADE FOR LIFE. ";
 
@@ -67,7 +73,13 @@ const PURPOSE_PARAGRAPHS = [
   "It represents a life lived with purpose.",
 ];
 
-export default function Home() {
+export default async function Home() {
+  const stories = await prisma.purposeStory.findMany({
+    where: { status: StoryStatus.APPROVED },
+    orderBy: { createdAt: "desc" },
+    take: 3,
+  });
+
   return (
     <>
       {/* ───────────────────────── HERO ───────────────────────── */}
@@ -258,6 +270,36 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      {/* ───────────────────────── PURPOSE STORIES ───────────────────────── */}
+      {stories.length > 0 && (
+        <section className="border-t border-[rgba(201,168,76,0.15)] bg-[#0d1117] px-6 py-20">
+          <div className="mb-12 text-center">
+            <p className="mb-3 font-condensed text-xs uppercase tracking-widest text-[#c9a84c]">
+              Purpose Stories
+            </p>
+            <h2 className="font-display text-4xl text-[#f0e6d3] md:text-5xl">
+              WHY WE FISH
+            </h2>
+            <p className="mt-2 font-body text-[rgba(240,230,211,0.55)]">
+              Real stories from the Reel Purpose community.
+            </p>
+          </div>
+
+          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-3">
+            {stories.map((story) => (
+              <StoryCard key={story.id} story={story} />
+            ))}
+          </div>
+
+          <Link
+            href="/stories"
+            className="mt-8 block text-center font-condensed text-sm uppercase tracking-widest text-[#c9a84c]"
+          >
+            Read All Stories →
+          </Link>
+        </section>
+      )}
 
       {/* ────────────────────────── NEWSLETTER ────────────────────────── */}
       <section className="border-y border-[rgba(201,168,76,0.2)] bg-[#0d1117] py-16">
