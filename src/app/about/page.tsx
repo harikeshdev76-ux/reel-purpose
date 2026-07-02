@@ -3,60 +3,98 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Our Story — Reel Purpose",
   description:
-    "Meet Luca Giallombardo, founder of Reel Purpose — a Florida fishing apparel brand built on faith, family, fishing, and the outdoors.",
+    "Meet Luca, founder of Reel Purpose — a Florida fishing apparel brand built on faith, family, fishing, and the outdoors.",
 };
 
-const STORY_PARAGRAPHS = [
-  "Hi, I'm Luca Giallombardo, founder of Reel Purpose.",
-  "Born and raised in Florida, I've spent countless hours on the water fishing with family and friends. Some of my best memories have come from early mornings, chasing fish, and enjoying the outdoors.",
-  "Fishing has taught me patience, hard work, and respect for God's creation. It has also shown me the importance of family, adventure, and making the most of every day.",
-  "I started Reel Purpose because I wanted to create more than just fishing apparel. I wanted to build a brand that represents the lifestyle we love—faith, family, fishing, and the outdoors. Whether you're fishing the flats, running offshore, or casting from the shore, I hope Reel Purpose reminds you to enjoy the journey and make every trip count.",
-  "Thank you for being part of the journey.",
+const INTRO_PARAGRAPHS = [
+  "Hi, I'm Luca.",
+  "I grew up in Florida where some of my greatest memories were made fishing.",
+  "Those mornings taught me lessons that had nothing to do with catching fish.",
+];
+
+const LESSON_LINES = [
+  "They taught me patience.",
+  "Hard work.",
+  "Faith.",
+  "Respect for nature.",
+  "And how valuable time with family truly is.",
+];
+
+const MEANING_PARAGRAPHS = [
+  "Reel Purpose was created because I wanted a brand that represents everything fishing has given me—not just the excitement of the catch, but the people beside me and the memories we'll never forget.",
+  "Every shirt, every hat, and every design reminds us that life is about much more than fishing.",
+  "It's about living with purpose.",
+];
+
+const CLOSING_LINES = [
+  "Thank you for being part of our journey.",
+  "See you on the water.",
 ];
 
 const TAGLINE = "More than fishing. It's a purpose. 🎣🌊";
-
 const SCRIPTURE =
   "Then He said to them, 'Follow Me, and I will make you fishers of men.'";
 
 export default function AboutPage() {
   return (
-    <section className="bg-brand-base">
-      <div className="mx-auto max-w-2xl px-6 py-20">
-        <h1 className="font-display text-4xl text-brand-textPrimary md:text-[56px]">
+    <section className="min-h-screen bg-[#0d1117]">
+      <div className="mx-auto max-w-5xl px-6 py-20">
+        <h1 className="font-display text-4xl text-[#f0e6d3] md:text-[56px]">
           Meet Luca
         </h1>
-        <p className="mt-2 font-condensed text-sm uppercase tracking-widest text-brand-rust">
+        <p className="mt-2 font-condensed text-sm uppercase tracking-widest text-[#c9a84c]">
           Founder, Reel Purpose
         </p>
 
-        <div className="mt-10 space-y-6 font-body text-lg leading-relaxed text-brand-textPrimary">
-          {STORY_PARAGRAPHS.map((paragraph, i) => (
-            <p key={i}>{paragraph}</p>
-          ))}
-        </div>
+        {/* Two-column: story left, photo right (photo pending from Mike) */}
+        <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-2">
+          <div className="font-body text-base leading-relaxed text-[rgba(240,230,211,0.7)]">
+            <div className="space-y-5">
+              {INTRO_PARAGRAPHS.map((paragraph, i) => (
+                <p key={i}>{paragraph}</p>
+              ))}
+            </div>
 
-        {/* Signature */}
-        <div className="mt-8">
-          <p className="font-display text-xl text-brand-textPrimary">
-            Luca Giallombardo
-          </p>
-          <p className="mt-1 font-condensed text-sm uppercase tracking-widest text-brand-textMuted">
-            Founder, Reel Purpose
-          </p>
+            <div className="mt-5 space-y-1">
+              {LESSON_LINES.map((line, i) => (
+                <p key={i}>{line}</p>
+              ))}
+            </div>
+
+            <div className="mt-5 space-y-5">
+              {MEANING_PARAGRAPHS.map((paragraph, i) => (
+                <p key={i}>{paragraph}</p>
+              ))}
+            </div>
+
+            <div className="mt-5 space-y-1">
+              {CLOSING_LINES.map((line, i) => (
+                <p key={i}>{line}</p>
+              ))}
+            </div>
+
+            <p className="mt-6 font-display text-xl text-[#f0e6d3]">— Luca</p>
+          </div>
+
+          {/* Photo placeholder */}
+          <div className="flex min-h-[360px] items-center justify-center rounded-lg border border-[rgba(201,168,76,0.2)] bg-[#141b22]">
+            <span className="font-condensed text-xs uppercase tracking-widest text-[rgba(240,230,211,0.3)]">
+              Photo coming soon
+            </span>
+          </div>
         </div>
 
         {/* Tagline */}
-        <p className="mt-12 text-center font-display text-2xl text-brand-rust">
+        <p className="mt-12 text-center font-display text-2xl text-[#c9a84c]">
           {TAGLINE}
         </p>
 
-        {/* Scripture quote block */}
-        <blockquote className="mt-8 border-l-4 border-brand-sectionGreen pl-5">
-          <p className="font-body text-base italic text-brand-textMuted">
-            {SCRIPTURE}
+        {/* Scripture */}
+        <blockquote className="mx-auto mt-8 max-w-2xl text-center">
+          <p className="font-body text-base italic text-[#7eb8a4]">
+            &ldquo;{SCRIPTURE}&rdquo;
           </p>
-          <cite className="mt-2 block font-condensed text-sm uppercase not-italic tracking-widest text-brand-textMuted">
+          <cite className="mt-2 block font-condensed text-sm uppercase not-italic tracking-widest text-[#c9a84c]">
             — Matthew 4:19
           </cite>
         </blockquote>

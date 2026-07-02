@@ -65,8 +65,8 @@ export default function NewsletterForm() {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="Your email address"
-          aria-label="Your email address"
+          placeholder="Email Address"
+          aria-label="Email Address"
           className="flex-1 rounded border border-[rgba(201,168,76,0.3)] bg-[rgba(255,255,255,0.05)] px-4 py-3 text-[#f0e6d3] placeholder:text-[rgba(240,230,211,0.35)] focus:border-[#c9a84c] focus:outline-none"
         />
         <button
@@ -74,7 +74,7 @@ export default function NewsletterForm() {
           disabled={loading}
           className="whitespace-nowrap rounded bg-[#c9a84c] px-6 py-3 font-condensed font-bold uppercase tracking-widest text-[#0d1117] transition-colors hover:bg-[#b8952e] disabled:opacity-70"
         >
-          {loading ? "Subscribing..." : "Subscribe"}
+          {loading ? "Subscribing..." : "Join the Crew →"}
         </button>
       </div>
       {status === "error" && errorMsg ? (

@@ -4,19 +4,67 @@ import NewsletterForm from "@/components/NewsletterForm";
 
 const MARQUEE_PHRASE = "— FISHING WITH PURPOSE. BUILT IN FLORIDA. MADE FOR LIFE. ";
 
-const CATEGORIES = [
+const COLLECTIONS = [
   {
     title: "SALTWATER",
-    subtitle: "Tarpon · Snook · Redfish · Tuna / Mahi",
+    headline: "Chase the Tide",
+    description:
+      "From early morning tarpon runs to offshore adventures, our Saltwater Collection is built for anglers who live for the next cast.",
+    species: "Tarpon • Snook • Redfish • Tuna • Mahi",
     href: "/shop?category=saltwater",
-    cta: "SHOP SALTWATER →",
+    cta: "Shop Saltwater →",
   },
   {
     title: "FRESHWATER",
-    subtitle: "Bass · Lake · River",
+    headline: "Where Every Cast Begins",
+    description:
+      "Whether you're chasing bass at sunrise or spending weekends on your favorite lake, our Freshwater Collection celebrates the places where memories are made.",
+    species: "Bass • River • Lake",
     href: "/shop?category=freshwater",
-    cta: "SHOP FRESHWATER →",
+    cta: "Shop Freshwater →",
   },
+];
+
+const VALUES = [
+  {
+    icon: "✝",
+    title: "Faith",
+    body: "We believe every sunrise on the water is a reminder of God's incredible creation.",
+  },
+  {
+    icon: "🏠",
+    title: "Family",
+    body: "Some of life's greatest conversations happen in a boat before daylight.",
+  },
+  {
+    icon: "🧭",
+    title: "Adventure",
+    body: "Every trip brings new memories, new places, and new stories to tell.",
+  },
+  {
+    icon: "🌊",
+    title: "Conservation",
+    body: "We believe protecting our fisheries today ensures future generations can enjoy them tomorrow.",
+  },
+  {
+    icon: "🤝",
+    title: "Community",
+    body: "Fishing brings people together. We're proud to be part of a growing community that shares a passion for the outdoors.",
+  },
+];
+
+const PURPOSE_INTRO = "Fishing isn't just about catching fish.";
+const PURPOSE_SHORT = [
+  "It's about slowing down.",
+  "It's about sunrise conversations.",
+  "It's about learning patience.",
+  "It's about respecting God's creation.",
+  "It's about teaching the next generation.",
+];
+const PURPOSE_PARAGRAPHS = [
+  "At Reel Purpose, we believe every trip on the water is an opportunity to build stronger families, stronger faith, and unforgettable memories.",
+  "That's why every design we create represents something bigger than apparel.",
+  "It represents a life lived with purpose.",
 ];
 
 export default function Home() {
@@ -93,36 +141,45 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ──────────────────── SHOP BY CATEGORY ──────────────────── */}
+      {/* ──────────────────────── COLLECTIONS ──────────────────────── */}
       <section className="bg-[#0d1117]">
         <div className="mx-auto max-w-7xl px-6 py-20">
           {/* Eyebrow with gold line accents */}
           <div className="flex items-center gap-4">
             <hr className="flex-1 border-[rgba(201,168,76,0.25)]" />
             <span className="font-condensed text-xs uppercase tracking-[0.3em] text-[#c9a84c]">
-              Shop By Category
+              Collections
             </span>
             <hr className="flex-1 border-[rgba(201,168,76,0.25)]" />
           </div>
 
           <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
-            {CATEGORIES.map((category) => (
+            {COLLECTIONS.map((collection) => (
               <Link
-                key={category.title}
-                href={category.href}
-                className="group block border-t-2 border-t-[#c9a84c] border-x border-b border-x-[rgba(201,168,76,0.2)] border-b-[rgba(201,168,76,0.2)] bg-[#141b22] transition-colors hover:border-x-[rgba(201,168,76,0.6)] hover:border-b-[rgba(201,168,76,0.6)]"
+                key={collection.title}
+                href={collection.href}
+                className="group block border-t-2 border-x border-b border-t-[#c9a84c] border-x-[rgba(201,168,76,0.2)] border-b-[rgba(201,168,76,0.2)] bg-[#141b22] transition-colors hover:border-x-[rgba(201,168,76,0.6)] hover:border-b-[rgba(201,168,76,0.6)]"
               >
                 {/* Placeholder image area */}
                 <div className="h-64 w-full bg-gradient-to-b from-[#1a2530] to-[#0d1117]" />
                 <div className="p-8">
                   <h3 className="font-display text-4xl text-[#f0e6d3]">
-                    {category.title}
+                    {collection.title}
                   </h3>
-                  <p className="mt-2 font-condensed text-sm uppercase tracking-widest text-[#7eb8a4]">
-                    {category.subtitle}
+                  <p className="mb-2 mt-1 font-display text-2xl text-[#f0e6d3]">
+                    {collection.headline}
                   </p>
-                  <span className="mt-6 inline-block font-condensed text-sm uppercase tracking-widest text-[#c9a84c]">
-                    {category.cta}
+                  <p className="mb-3 font-body text-sm text-[rgba(240,230,211,0.6)]">
+                    {collection.description}
+                  </p>
+                  <p className="mb-1 font-condensed text-xs uppercase tracking-widest text-[rgba(240,230,211,0.4)]">
+                    Featured Species
+                  </p>
+                  <p className="mb-4 font-condensed text-sm text-[#c9a84c]">
+                    {collection.species}
+                  </p>
+                  <span className="inline-block font-condensed text-sm uppercase tracking-widest text-[#c9a84c]">
+                    {collection.cta}
                   </span>
                 </div>
               </Link>
@@ -131,24 +188,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ──────────────────── NEWSLETTER ──────────────────── */}
-      <section className="border-y border-[rgba(201,168,76,0.2)] bg-[#0d1117] py-16">
-        <div className="mx-auto max-w-2xl px-6 text-center">
-          <p className="mb-3 font-condensed text-xs uppercase tracking-widest text-[#c9a84c]">
-            Stay In The Loop
-          </p>
-          <h2 className="mb-3 font-display text-4xl text-[#f0e6d3] md:text-5xl">
-            Join The Reel Purpose Community
-          </h2>
-          <p className="mb-8 font-body text-base text-[rgba(240,230,211,0.55)]">
-            Be the first to know about new species drops, limited apparel, and
-            stories from the water.
-          </p>
-          <NewsletterForm />
-        </div>
-      </section>
-
-      {/* ──────────────────── BRAND TAGLINE ──────────────────── */}
+      {/* ─────────────────────────── PURPOSE ─────────────────────────── */}
       <section className="border-y border-[rgba(201,168,76,0.15)] bg-[#141b22] py-20 text-center">
         <div className="mx-auto max-w-3xl px-6">
           {/* Decorative gold line accent */}
@@ -159,10 +199,17 @@ export default function Home() {
             <span className="block text-[#c9a84c]">IT&apos;S A PURPOSE.</span>
           </h2>
 
-          <p className="mx-auto mt-6 max-w-2xl font-body text-lg text-[rgba(240,230,211,0.55)]">
-            Founded by Luca Giallombardo — built on faith, family, and a love
-            for the water.
-          </p>
+          <div className="mx-auto mt-6 max-w-2xl space-y-4 font-body text-base leading-relaxed text-[rgba(240,230,211,0.7)] md:text-lg">
+            <p>{PURPOSE_INTRO}</p>
+            <div className="space-y-2">
+              {PURPOSE_SHORT.map((line, i) => (
+                <p key={i}>{line}</p>
+              ))}
+            </div>
+            {PURPOSE_PARAGRAPHS.map((paragraph, i) => (
+              <p key={i}>{paragraph}</p>
+            ))}
+          </div>
 
           <div className="mt-8">
             <p className="font-body text-sm italic text-[#7eb8a4]">
@@ -180,6 +227,52 @@ export default function Home() {
           >
             Read Our Story →
           </Link>
+        </div>
+      </section>
+
+      {/* ────────────────────────── WHY WE FISH ────────────────────────── */}
+      <section className="border-t border-[rgba(201,168,76,0.15)] bg-[#141b22] px-6 py-20">
+        <div className="mb-12 text-center">
+          <p className="mb-3 font-condensed text-xs uppercase tracking-widest text-[#c9a84c]">
+            Our Values
+          </p>
+          <h2 className="font-display text-4xl text-[#f0e6d3] md:text-5xl">
+            WHY WE FISH
+          </h2>
+        </div>
+
+        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {VALUES.map((value) => (
+            <div
+              key={value.title}
+              className="rounded-lg border border-[rgba(201,168,76,0.15)] bg-[rgba(255,255,255,0.03)] p-6 transition-colors hover:border-[rgba(201,168,76,0.4)]"
+            >
+              <div className="mb-4 text-2xl text-[#c9a84c]">{value.icon}</div>
+              <h3 className="mb-2 font-display text-xl text-[#c9a84c]">
+                {value.title}
+              </h3>
+              <p className="font-body text-sm leading-relaxed text-[rgba(240,230,211,0.6)]">
+                {value.body}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ────────────────────────── NEWSLETTER ────────────────────────── */}
+      <section className="border-y border-[rgba(201,168,76,0.2)] bg-[#0d1117] py-16">
+        <div className="mx-auto max-w-2xl px-6 text-center">
+          <p className="mb-3 font-condensed text-xs uppercase tracking-widest text-[#c9a84c]">
+            Join The Crew
+          </p>
+          <h2 className="mb-3 font-display text-4xl text-[#f0e6d3] md:text-5xl">
+            Join The Crew
+          </h2>
+          <p className="mb-8 font-body text-base text-[rgba(240,230,211,0.55)]">
+            Get exclusive product launches, fishing stories, giveaways, and
+            early access to limited-edition collections.
+          </p>
+          <NewsletterForm />
         </div>
       </section>
     </>

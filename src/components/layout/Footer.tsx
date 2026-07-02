@@ -45,6 +45,10 @@ export default function Footer() {
             <p className="mt-3 font-condensed text-sm uppercase tracking-widest text-[rgba(240,230,211,0.55)]">
               Built In Florida. Made For Life.
             </p>
+            <p className="mt-2 max-w-[200px] font-body text-xs leading-relaxed text-[rgba(240,230,211,0.4)]">
+              Premium fishing apparel inspired by faith, family, and the pursuit
+              of unforgettable days on the water.
+            </p>
           </div>
 
           {/* Nav columns */}

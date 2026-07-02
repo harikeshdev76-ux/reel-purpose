@@ -9,6 +9,19 @@ import AddToCartSection from "@/components/shop/AddToCartSection";
 
 type ProductPageProps = { params: { slug: string } };
 
+const PRODUCT_BLURB =
+  "Whether you're casting inshore, running offshore, or relaxing at the dock, every Reel Purpose product is built with comfort, durability, and performance in mind.";
+
+const PRODUCT_FEATURES = [
+  "Designed in Florida",
+  "Premium Materials",
+  "Lightweight & Breathable",
+  "Moisture-Wicking Performance",
+  "Built for Saltwater & Freshwater",
+  "Everyday Comfort",
+  "Made to Last",
+];
+
 function getProduct(slug: string) {
   return prisma.product.findUnique({ where: { slug } });
 }
@@ -99,6 +112,26 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 </button>
               </div>
             )}
+
+            {/* Brand values */}
+            <hr className="my-6 border-brand-border" />
+            <h2 className="mb-3 font-display text-lg text-brand-textPrimary">
+              Built to Perform. Designed to Last.
+            </h2>
+            <p className="mb-4 font-body text-sm text-brand-textMuted">
+              {PRODUCT_BLURB}
+            </p>
+            <ul className="space-y-1">
+              {PRODUCT_FEATURES.map((feature) => (
+                <li
+                  key={feature}
+                  className="flex items-center gap-2 font-body text-sm text-brand-textPrimary"
+                >
+                  <span className="text-brand-rust">✓</span>
+                  {feature}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
