@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import NewsletterForm from "@/components/NewsletterForm";
 
 const MARQUEE_PHRASE = "— FISHING WITH PURPOSE. BUILT IN FLORIDA. MADE FOR LIFE. ";
 
@@ -127,6 +128,23 @@ export default function Home() {
               </Link>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ──────────────────── NEWSLETTER ──────────────────── */}
+      <section className="border-y border-[rgba(201,168,76,0.2)] bg-[#0d1117] py-16">
+        <div className="mx-auto max-w-2xl px-6 text-center">
+          <p className="mb-3 font-condensed text-xs uppercase tracking-widest text-[#c9a84c]">
+            Stay In The Loop
+          </p>
+          <h2 className="mb-3 font-display text-4xl text-[#f0e6d3] md:text-5xl">
+            Join The Reel Purpose Community
+          </h2>
+          <p className="mb-8 font-body text-base text-[rgba(240,230,211,0.55)]">
+            Be the first to know about new species drops, limited apparel, and
+            stories from the water.
+          </p>
+          <NewsletterForm />
         </div>
       </section>
 
