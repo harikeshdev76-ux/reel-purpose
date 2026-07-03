@@ -78,14 +78,14 @@ export default function AboutPage() {
           </div>
 
           {/* Founder photo */}
-          <div className="relative min-h-[360px] overflow-hidden rounded-lg border border-[rgba(201,168,76,0.2)]">
+          <div className="relative w-full overflow-hidden rounded-lg border border-[rgba(201,168,76,0.2)]">
             <Image
               src="/ourstory.jpeg"
               alt="Luca Giallombardo — Founder, Reel Purpose"
-              fill
+              width={600}
+              height={800}
+              className="h-auto w-full rounded-lg"
               priority
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover"
             />
           </div>
         </div>
