@@ -78,7 +78,7 @@ export default function AboutPage() {
           </div>
 
           {/* Founder photo */}
-          <div className="relative w-full overflow-hidden rounded-lg border border-[rgba(201,168,76,0.2)]">
+          <div className="sticky top-8 self-start w-full overflow-hidden rounded-lg border border-[rgba(201,168,76,0.2)]">
             <Image
               src="/ourstory.jpeg"
               alt="Luca Giallombardo — Founder, Reel Purpose"
