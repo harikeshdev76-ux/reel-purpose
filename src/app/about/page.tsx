@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -76,11 +77,16 @@ export default function AboutPage() {
             <p className="mt-6 font-display text-xl text-[#f0e6d3]">— Luca</p>
           </div>
 
-          {/* Photo placeholder */}
-          <div className="flex min-h-[360px] items-center justify-center rounded-lg border border-[rgba(201,168,76,0.2)] bg-[#141b22]">
-            <span className="font-condensed text-xs uppercase tracking-widest text-[rgba(240,230,211,0.3)]">
-              Photo coming soon
-            </span>
+          {/* Founder photo */}
+          <div className="relative min-h-[360px] overflow-hidden rounded-lg border border-[rgba(201,168,76,0.2)]">
+            <Image
+              src="/ourstory.jpeg"
+              alt="Luca Giallombardo — Founder, Reel Purpose"
+              fill
+              priority
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover"
+            />
           </div>
         </div>
 
