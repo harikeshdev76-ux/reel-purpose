@@ -279,7 +279,7 @@ export default async function Home() {
               Purpose Stories
             </p>
             <h2 className="font-display text-4xl text-[#f0e6d3] md:text-5xl">
-              WHY WE FISH
+              PURPOSE STORIES
             </h2>
             <p className="mt-2 font-body text-[rgba(240,230,211,0.55)]">
               Real stories from the Reel Purpose community.
