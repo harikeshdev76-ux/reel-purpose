@@ -4,6 +4,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { CartProvider } from "@/context/CartContext";
 import AuthSessionProvider from "@/components/providers/AuthSessionProvider";
+import CookieBanner from "@/components/CookieBanner";
 
 export const metadata: Metadata = {
   title: "Reel Purpose",
@@ -36,6 +37,7 @@ export default function RootLayout({
             <Footer />
           </CartProvider>
         </AuthSessionProvider>
+        <CookieBanner />
       </body>
     </html>
   );

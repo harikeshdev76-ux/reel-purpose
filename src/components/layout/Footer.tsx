@@ -19,6 +19,12 @@ const FOOTER_COLUMNS = [
   },
 ];
 
+const LEGAL_LINKS = [
+  { label: "Privacy Policy", href: "/privacy" },
+  { label: "Terms of Service", href: "/terms" },
+  { label: "Cookie Policy", href: "/cookies" },
+];
+
 export default function Footer() {
   const year = new Date().getFullYear();
   const pathname = usePathname();
@@ -76,10 +82,21 @@ export default function Footer() {
 
       {/* Bottom bar */}
       <div className="border-t border-[rgba(201,168,76,0.15)]">
-        <div className="mx-auto max-w-7xl px-6 py-3">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-6 py-3 sm:flex-row">
           <p className="font-condensed text-xs uppercase tracking-widest text-[rgba(240,230,211,0.55)]">
             © {year} Reel Purpose · Florida Fishing Apparel
           </p>
+          <div className="flex flex-wrap justify-center gap-2">
+            {LEGAL_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="mx-2 font-condensed text-xs uppercase tracking-widest text-[rgba(240,230,211,0.35)] transition-colors hover:text-[#c9a84c]"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </footer>
