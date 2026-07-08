@@ -10,15 +10,16 @@ export const dynamic = "force-dynamic";
 
 const MARQUEE_PHRASE = "— FISHING WITH PURPOSE. BUILT IN FLORIDA. MADE FOR LIFE. ";
 
-const COLLECTIONS = [
+const ORIGINALS_DESCRIPTION =
+  "The collection that started it all. Clean, timeless, and built for life on the water. The Originals Collection features our signature performance shirts and embroidered hats, designed for anglers who appreciate quality without the extra flash. Whether you're running offshore before sunrise, exploring the backwaters, or spending the day with family, these are the essentials you'll reach for every time.";
+
+const COMING_SOON = [
   {
     title: "SALTWATER",
     headline: "Chase the Tide",
     description:
       "From early morning tarpon runs to offshore adventures, our Saltwater Collection is built for anglers who live for the next cast.",
     species: "Tarpon • Snook • Redfish • Tuna • Mahi",
-    href: "/shop?category=saltwater",
-    cta: "Shop Saltwater →",
   },
   {
     title: "FRESHWATER",
@@ -26,8 +27,6 @@ const COLLECTIONS = [
     description:
       "Whether you're chasing bass at sunrise or spending weekends on your favorite lake, our Freshwater Collection celebrates the places where memories are made.",
     species: "Bass • River • Lake",
-    href: "/shop?category=freshwater",
-    cta: "Shop Freshwater →",
   },
 ];
 
@@ -165,36 +164,57 @@ export default async function Home() {
             <hr className="flex-1 border-[rgba(201,168,76,0.25)]" />
           </div>
 
-          <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
-            {COLLECTIONS.map((collection) => (
-              <Link
+          <div className="mx-auto mt-10 grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-3">
+            {/* Originals — active, links to shop */}
+            <Link
+              href="/shop"
+              className="group block rounded-lg border border-t-2 border-[rgba(201,168,76,0.3)] border-t-[#c9a84c] bg-[#141b22] p-6 transition-colors hover:border-[rgba(201,168,76,0.6)]"
+            >
+              <p className="mb-2 font-condensed text-xs uppercase tracking-widest text-[#c9a84c]">
+                Reel Purpose Originals
+              </p>
+              <h3 className="mb-3 font-display text-3xl text-[#f0e6d3]">
+                THE ORIGINALS
+              </h3>
+              <p className="mb-4 font-body text-sm leading-relaxed text-[rgba(240,230,211,0.6)]">
+                {ORIGINALS_DESCRIPTION}
+              </p>
+              <p className="mb-4 font-condensed text-xs uppercase tracking-widest text-[rgba(240,230,211,0.4)]">
+                Simple. Comfortable. Built with Purpose.
+              </p>
+              <span className="font-condensed text-sm uppercase tracking-widest text-[#c9a84c] transition-colors group-hover:text-[#b8952e]">
+                Shop Originals →
+              </span>
+            </Link>
+
+            {/* Saltwater + Freshwater — coming soon, not clickable */}
+            {COMING_SOON.map((collection) => (
+              <div
                 key={collection.title}
-                href={collection.href}
-                className="group block border-t-2 border-x border-b border-t-[#c9a84c] border-x-[rgba(201,168,76,0.2)] border-b-[rgba(201,168,76,0.2)] bg-[#141b22] transition-colors hover:border-x-[rgba(201,168,76,0.6)] hover:border-b-[rgba(201,168,76,0.6)]"
+                className="cursor-default rounded-lg border border-[rgba(255,255,255,0.06)] bg-[rgba(20,27,34,0.5)] p-6 opacity-75"
               >
-                {/* Placeholder image area */}
-                <div className="h-64 w-full bg-gradient-to-b from-[#1a2530] to-[#0d1117]" />
-                <div className="p-8">
-                  <h3 className="font-display text-4xl text-[#f0e6d3]">
-                    {collection.title}
-                  </h3>
-                  <p className="mb-2 mt-1 font-display text-2xl text-[#f0e6d3]">
-                    {collection.headline}
-                  </p>
-                  <p className="mb-3 font-body text-sm text-[rgba(240,230,211,0.6)]">
-                    {collection.description}
-                  </p>
-                  <p className="mb-1 font-condensed text-xs uppercase tracking-widest text-[rgba(240,230,211,0.4)]">
-                    Featured Species
-                  </p>
-                  <p className="mb-4 font-condensed text-sm text-[#c9a84c]">
-                    {collection.species}
-                  </p>
-                  <span className="inline-block font-condensed text-sm uppercase tracking-widest text-[#c9a84c]">
-                    {collection.cta}
-                  </span>
-                </div>
-              </Link>
+                <span className="mb-3 inline-block rounded-full bg-[rgba(201,168,76,0.1)] px-3 py-1 font-condensed text-xs uppercase tracking-widest text-[#c9a84c]">
+                  Coming Soon
+                </span>
+                <h3 className="mb-2 font-display text-3xl text-[rgba(240,230,211,0.4)]">
+                  {collection.title}
+                </h3>
+                <p className="mb-2 font-display text-xl text-[rgba(240,230,211,0.3)]">
+                  {collection.headline}
+                </p>
+                <p className="mb-3 font-body text-sm leading-relaxed text-[rgba(240,230,211,0.35)]">
+                  {collection.description}
+                </p>
+                <p className="mb-1 font-condensed text-xs uppercase tracking-widest text-[rgba(240,230,211,0.3)]">
+                  Featured Species
+                </p>
+                <p className="mb-4 font-condensed text-sm text-[rgba(201,168,76,0.35)]">
+                  {collection.species}
+                </p>
+                <span className="font-condensed text-xs uppercase tracking-widest text-[rgba(240,230,211,0.3)]">
+                  Launching Soon
+                </span>
+              </div>
             ))}
           </div>
         </div>
