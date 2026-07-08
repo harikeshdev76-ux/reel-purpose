@@ -52,6 +52,7 @@ export default async function Home() {
     getContent([
       "hero.headline.line1",
       "hero.headline.line2",
+      "hero.headline.line3",
       "hero.subtext",
       "hero.cta.primary",
       "hero.cta.secondary",
@@ -141,10 +142,13 @@ export default async function Home() {
         <div className="relative z-10 px-6 pb-20 md:px-12 md:pb-24 lg:px-16">
           <h1 className="font-display leading-[0.9] text-[min(56px,10vh)] md:text-[min(80px,12vh)] lg:text-[min(108px,13vh)]">
             <span className="block text-[#f0e6d3]">
-              {c(content, "hero.headline.line1", "FISHING WITH")}
+              {c(content, "hero.headline.line1", "FISHING")}
+            </span>
+            <span className="block text-[#f0e6d3]">
+              {c(content, "hero.headline.line2", "WITH")}
             </span>
             <span className="block text-[#c9a84c]">
-              {c(content, "hero.headline.line2", "PURPOSE.")}
+              {c(content, "hero.headline.line3", "PURPOSE.")}
             </span>
           </h1>
           <p className="mt-2 font-condensed text-xs uppercase tracking-[0.2em] text-[#7eb8a4] md:mt-3 md:text-sm">

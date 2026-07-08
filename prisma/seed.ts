@@ -69,8 +69,9 @@ const SITE_CONTENT: {
   section: string;
 }[] = [
   // Homepage Hero
-  { key: "hero.headline.line1", value: "FISHING WITH", type: ContentType.TEXT, label: "Hero Headline Line 1", section: "Homepage Hero" },
-  { key: "hero.headline.line2", value: "PURPOSE.", type: ContentType.TEXT, label: "Hero Headline Line 2 (Gold)", section: "Homepage Hero" },
+  { key: "hero.headline.line1", value: "FISHING", type: ContentType.TEXT, label: "Hero Headline Line 1", section: "Homepage Hero" },
+  { key: "hero.headline.line2", value: "WITH", type: ContentType.TEXT, label: "Hero Headline Line 2", section: "Homepage Hero" },
+  { key: "hero.headline.line3", value: "PURPOSE.", type: ContentType.TEXT, label: "Hero Headline Line 3 (Gold)", section: "Homepage Hero" },
   { key: "hero.subtext", value: "Built in Florida. Made for life.", type: ContentType.TEXT, label: "Hero Subtext", section: "Homepage Hero" },
   { key: "hero.cta.primary", value: "Shop Apparel", type: ContentType.TEXT, label: "Hero Primary CTA Label", section: "Homepage Hero" },
   { key: "hero.cta.secondary", value: "Our Story", type: ContentType.TEXT, label: "Hero Secondary CTA Label", section: "Homepage Hero" },
