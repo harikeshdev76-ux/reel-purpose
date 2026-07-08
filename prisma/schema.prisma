@@ -83,6 +83,15 @@ model NewsletterSubscriber {
   createdAt DateTime @default(now())
 }
 
+model SiteContent {
+  key       String      @id
+  value     String
+  type      ContentType @default(TEXT)
+  label     String
+  section   String
+  updatedAt DateTime    @updatedAt
+}
+
 model Customer {
   id        String   @id @default(cuid())
   name      String
@@ -145,4 +154,9 @@ enum StoryStatus {
   PENDING
   APPROVED
   REJECTED
+}
+
+enum ContentType {
+  TEXT
+  IMAGE
 }

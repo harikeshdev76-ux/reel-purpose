@@ -1,5 +1,6 @@
 import {
   PrismaClient,
+  ContentType,
   ProductCategory,
   ProductType,
   Size,
@@ -55,6 +56,78 @@ const admins = [
     email: process.env.ADMIN_LUCA_EMAIL,
     password: process.env.ADMIN_LUCA_PASSWORD,
   },
+];
+
+// Editable site content. Defaults match the current hardcoded copy so the site
+// looks identical after migration. Seeded with upsert (create-only) so admin
+// edits are never overwritten on re-seed.
+const SITE_CONTENT: {
+  key: string;
+  value: string;
+  type: ContentType;
+  label: string;
+  section: string;
+}[] = [
+  // Homepage Hero
+  { key: "hero.headline.line1", value: "FISHING WITH", type: ContentType.TEXT, label: "Hero Headline Line 1", section: "Homepage Hero" },
+  { key: "hero.headline.line2", value: "PURPOSE.", type: ContentType.TEXT, label: "Hero Headline Line 2 (Gold)", section: "Homepage Hero" },
+  { key: "hero.subtext", value: "Built in Florida. Made for life.", type: ContentType.TEXT, label: "Hero Subtext", section: "Homepage Hero" },
+  { key: "hero.cta.primary", value: "Shop Apparel", type: ContentType.TEXT, label: "Hero Primary CTA Label", section: "Homepage Hero" },
+  { key: "hero.cta.secondary", value: "Our Story", type: ContentType.TEXT, label: "Hero Secondary CTA Label", section: "Homepage Hero" },
+  { key: "hero.image", value: "/background_with_no_logo.png", type: ContentType.IMAGE, label: "Hero Background Image", section: "Homepage Hero" },
+
+  // Homepage Collections
+  { key: "collections.originals.eyebrow", value: "Reel Purpose Originals", type: ContentType.TEXT, label: "Originals Eyebrow", section: "Homepage Collections" },
+  { key: "collections.originals.title", value: "THE ORIGINALS", type: ContentType.TEXT, label: "Originals Title", section: "Homepage Collections" },
+  { key: "collections.originals.description", value: "The collection that started it all. Clean, timeless, and built for life on the water. The Originals Collection features our signature performance shirts and embroidered hats, designed for anglers who appreciate quality without the extra flash. Whether you're running offshore before sunrise, exploring the backwaters, or spending the day with family, these are the essentials you'll reach for every time.", type: ContentType.TEXT, label: "Originals Description", section: "Homepage Collections" },
+  { key: "collections.originals.tagline", value: "Simple. Comfortable. Built with Purpose.", type: ContentType.TEXT, label: "Originals Tagline", section: "Homepage Collections" },
+  { key: "collections.saltwater.title", value: "SALTWATER", type: ContentType.TEXT, label: "Saltwater Title", section: "Homepage Collections" },
+  { key: "collections.saltwater.subtitle", value: "Chase the Tide", type: ContentType.TEXT, label: "Saltwater Subtitle", section: "Homepage Collections" },
+  { key: "collections.saltwater.description", value: "From early morning tarpon runs to offshore adventures, our Saltwater Collection is built for anglers who live for the next cast.", type: ContentType.TEXT, label: "Saltwater Description", section: "Homepage Collections" },
+  { key: "collections.freshwater.title", value: "FRESHWATER", type: ContentType.TEXT, label: "Freshwater Title", section: "Homepage Collections" },
+  { key: "collections.freshwater.subtitle", value: "Where Every Cast Begins", type: ContentType.TEXT, label: "Freshwater Subtitle", section: "Homepage Collections" },
+  { key: "collections.freshwater.description", value: "Whether you're chasing bass at sunrise or spending weekends on your favorite lake, our Freshwater Collection celebrates the places where memories are made.", type: ContentType.TEXT, label: "Freshwater Description", section: "Homepage Collections" },
+
+  // Homepage Purpose
+  { key: "purpose.headline.line1", value: "MORE THAN FISHING.", type: ContentType.TEXT, label: "Purpose Headline Line 1", section: "Homepage Purpose" },
+  { key: "purpose.headline.line2", value: "IT'S A PURPOSE.", type: ContentType.TEXT, label: "Purpose Headline Line 2 (Gold)", section: "Homepage Purpose" },
+  { key: "purpose.body", value: "Fishing isn't just about catching fish.\n\nIt's about slowing down.\nIt's about sunrise conversations.\nIt's about learning patience.\nIt's about respecting God's creation.\nIt's about teaching the next generation.\n\nAt Reel Purpose, we believe every trip on the water is an opportunity to build stronger families, stronger faith, and unforgettable memories.\n\nThat's why every design we create represents something bigger than apparel.\n\nIt represents a life lived with purpose.", type: ContentType.TEXT, label: "Purpose Body Copy", section: "Homepage Purpose" },
+  { key: "purpose.scripture", value: "Then He said to them, Follow Me, and I will make you fishers of men.", type: ContentType.TEXT, label: "Scripture Quote", section: "Homepage Purpose" },
+  { key: "purpose.scripture.attribution", value: "Matthew 4:19", type: ContentType.TEXT, label: "Scripture Attribution", section: "Homepage Purpose" },
+
+  // Homepage Values
+  { key: "values.faith.title", value: "Faith", type: ContentType.TEXT, label: "Faith Title", section: "Homepage Values" },
+  { key: "values.faith.description", value: "We believe every sunrise on the water is a reminder of God's incredible creation.", type: ContentType.TEXT, label: "Faith Description", section: "Homepage Values" },
+  { key: "values.family.title", value: "Family", type: ContentType.TEXT, label: "Family Title", section: "Homepage Values" },
+  { key: "values.family.description", value: "Some of life's greatest conversations happen in a boat before daylight.", type: ContentType.TEXT, label: "Family Description", section: "Homepage Values" },
+  { key: "values.adventure.title", value: "Adventure", type: ContentType.TEXT, label: "Adventure Title", section: "Homepage Values" },
+  { key: "values.adventure.description", value: "Every trip brings new memories, new places, and new stories to tell.", type: ContentType.TEXT, label: "Adventure Description", section: "Homepage Values" },
+  { key: "values.conservation.title", value: "Conservation", type: ContentType.TEXT, label: "Conservation Title", section: "Homepage Values" },
+  { key: "values.conservation.description", value: "We believe protecting our fisheries today ensures future generations can enjoy them tomorrow.", type: ContentType.TEXT, label: "Conservation Description", section: "Homepage Values" },
+  { key: "values.community.title", value: "Community", type: ContentType.TEXT, label: "Community Title", section: "Homepage Values" },
+  { key: "values.community.description", value: "Fishing brings people together. We're proud to be part of a growing community that shares a passion for the outdoors.", type: ContentType.TEXT, label: "Community Description", section: "Homepage Values" },
+
+  // Homepage Newsletter
+  { key: "newsletter.eyebrow", value: "Join The Crew", type: ContentType.TEXT, label: "Newsletter Eyebrow", section: "Homepage Newsletter" },
+  { key: "newsletter.headline", value: "Join The Crew", type: ContentType.TEXT, label: "Newsletter Headline", section: "Homepage Newsletter" },
+  { key: "newsletter.subtext", value: "Get exclusive product launches, fishing stories, giveaways, and early access to limited-edition collections.", type: ContentType.TEXT, label: "Newsletter Subtext", section: "Homepage Newsletter" },
+  { key: "newsletter.button", value: "Join the Crew →", type: ContentType.TEXT, label: "Newsletter Button Label", section: "Homepage Newsletter" },
+
+  // About Page
+  { key: "about.title", value: "Meet Luca", type: ContentType.TEXT, label: "About Page Title", section: "About Page" },
+  { key: "about.subtitle", value: "Founder, Reel Purpose", type: ContentType.TEXT, label: "About Page Subtitle", section: "About Page" },
+  { key: "about.body", value: "Hi, I'm Luca.\n\nI grew up in Florida where some of my greatest memories were made fishing.\n\nThose mornings taught me lessons that had nothing to do with catching fish.\n\nThey taught me patience.\nHard work.\nFaith.\nRespect for nature.\nAnd how valuable time with family truly is.\n\nReel Purpose was created because I wanted a brand that represents everything fishing has given me—not just the excitement of the catch, but the people beside me and the memories we'll never forget.\n\nEvery shirt, every hat, and every design reminds us that life is about much more than fishing.\n\nIt's about living with purpose.\n\nThank you for being part of our journey.\nSee you on the water.", type: ContentType.TEXT, label: "About Page Body", section: "About Page" },
+  { key: "about.tagline", value: "More than fishing. It's a purpose. 🎣🌊", type: ContentType.TEXT, label: "About Page Tagline", section: "About Page" },
+  { key: "about.image", value: "/ourstory.jpeg", type: ContentType.IMAGE, label: "About Page Photo", section: "About Page" },
+
+  // Product Page
+  { key: "product.brand.title", value: "Built to Perform. Designed to Last.", type: ContentType.TEXT, label: "Product Brand Block Title", section: "Product Page" },
+  { key: "product.brand.description", value: "Whether you're casting inshore, running offshore, or relaxing at the dock, every Reel Purpose product is built with comfort, durability, and performance in mind.", type: ContentType.TEXT, label: "Product Brand Description", section: "Product Page" },
+  { key: "product.brand.features", value: "Designed in Florida\nPremium Materials\nLightweight & Breathable\nMoisture-Wicking Performance\nBuilt for Saltwater & Freshwater\nEveryday Comfort\nMade to Last", type: ContentType.TEXT, label: "Product Features List (one per line)", section: "Product Page" },
+
+  // Footer
+  { key: "footer.tagline", value: "Built In Florida. Made For Life.", type: ContentType.TEXT, label: "Footer Tagline", section: "Footer" },
+  { key: "footer.description", value: "Premium fishing apparel inspired by faith, family, and the pursuit of unforgettable days on the water.", type: ContentType.TEXT, label: "Footer Brand Description", section: "Footer" },
 ];
 
 async function main() {
@@ -129,6 +202,16 @@ async function main() {
 
     console.log(`Seeded product: ${product.name} (${slug})`);
   }
+
+  // Site content — create only, so admin edits survive re-seeds.
+  for (const item of SITE_CONTENT) {
+    await prisma.siteContent.upsert({
+      where: { key: item.key },
+      update: {},
+      create: item,
+    });
+  }
+  console.log(`Seeded ${SITE_CONTENT.length} site content keys`);
 }
 
 main()

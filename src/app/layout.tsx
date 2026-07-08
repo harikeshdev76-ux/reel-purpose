@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+import SiteFooter from "@/components/layout/SiteFooter";
 import { CartProvider } from "@/context/CartContext";
 import AuthSessionProvider from "@/components/providers/AuthSessionProvider";
 import CookieBanner from "@/components/CookieBanner";
@@ -34,7 +34,7 @@ export default function RootLayout({
           <CartProvider>
             <Navbar />
             <main className="flex-1">{children}</main>
-            <Footer />
+            <SiteFooter />
           </CartProvider>
         </AuthSessionProvider>
         <CookieBanner />

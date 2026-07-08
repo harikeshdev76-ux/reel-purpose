@@ -6,6 +6,7 @@ import { prisma } from "@/lib/prisma";
 import { SPECIES_LABELS } from "@/lib/species";
 import { formatPrice } from "@/lib/money";
 import AddToCartSection from "@/components/shop/AddToCartSection";
+import { getContent, c } from "@/lib/content";
 
 type ProductPageProps = { params: { slug: string } };
 
@@ -21,6 +22,8 @@ const PRODUCT_FEATURES = [
   "Everyday Comfort",
   "Made to Last",
 ];
+
+export const dynamic = "force-dynamic";
 
 function getProduct(slug: string) {
   return prisma.product.findUnique({ where: { slug } });
@@ -42,6 +45,20 @@ export default async function ProductPage({ params }: ProductPageProps) {
   if (!product || !product.active) notFound();
 
   const speciesLabel = SPECIES_LABELS[product.species];
+
+  const content = await getContent([
+    "product.brand.title",
+    "product.brand.description",
+    "product.brand.features",
+  ]);
+  const brandFeatures = c(
+    content,
+    "product.brand.features",
+    PRODUCT_FEATURES.join("\n"),
+  )
+    .split("\n")
+    .map((f) => f.trim())
+    .filter(Boolean);
 
   return (
     <div className="bg-brand-base">
@@ -116,13 +133,13 @@ export default async function ProductPage({ params }: ProductPageProps) {
             {/* Brand values */}
             <hr className="my-6 border-brand-border" />
             <h2 className="mb-3 font-display text-lg text-brand-textPrimary">
-              Built to Perform. Designed to Last.
+              {c(content, "product.brand.title", "Built to Perform. Designed to Last.")}
             </h2>
             <p className="mb-4 font-body text-sm text-brand-textMuted">
-              {PRODUCT_BLURB}
+              {c(content, "product.brand.description", PRODUCT_BLURB)}
             </p>
             <ul className="space-y-1">
-              {PRODUCT_FEATURES.map((feature) => (
+              {brandFeatures.map((feature) => (
                 <li
                   key={feature}
                   className="flex items-center gap-2 font-body text-sm text-brand-textPrimary"

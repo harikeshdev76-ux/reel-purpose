@@ -1,5 +1,9 @@
 import Image from "next/image";
 import type { Metadata } from "next";
+import { getContent, c } from "@/lib/content";
+import MultilineText from "@/components/MultilineText";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Our Story — Reel Purpose",
@@ -7,80 +11,45 @@ export const metadata: Metadata = {
     "Meet Luca, founder of Reel Purpose — a Florida fishing apparel brand built on faith, family, fishing, and the outdoors.",
 };
 
-const INTRO_PARAGRAPHS = [
-  "Hi, I'm Luca.",
-  "I grew up in Florida where some of my greatest memories were made fishing.",
-  "Those mornings taught me lessons that had nothing to do with catching fish.",
-];
+const ABOUT_BODY_FALLBACK =
+  "Hi, I'm Luca.\n\nI grew up in Florida where some of my greatest memories were made fishing.\n\nThose mornings taught me lessons that had nothing to do with catching fish.\n\nThey taught me patience.\nHard work.\nFaith.\nRespect for nature.\nAnd how valuable time with family truly is.\n\nReel Purpose was created because I wanted a brand that represents everything fishing has given me—not just the excitement of the catch, but the people beside me and the memories we'll never forget.\n\nEvery shirt, every hat, and every design reminds us that life is about much more than fishing.\n\nIt's about living with purpose.\n\nThank you for being part of our journey.\nSee you on the water.";
 
-const LESSON_LINES = [
-  "They taught me patience.",
-  "Hard work.",
-  "Faith.",
-  "Respect for nature.",
-  "And how valuable time with family truly is.",
-];
-
-const MEANING_PARAGRAPHS = [
-  "Reel Purpose was created because I wanted a brand that represents everything fishing has given me—not just the excitement of the catch, but the people beside me and the memories we'll never forget.",
-  "Every shirt, every hat, and every design reminds us that life is about much more than fishing.",
-  "It's about living with purpose.",
-];
-
-const CLOSING_LINES = [
-  "Thank you for being part of our journey.",
-  "See you on the water.",
-];
-
-const TAGLINE = "More than fishing. It's a purpose. 🎣🌊";
 const SCRIPTURE =
   "Then He said to them, 'Follow Me, and I will make you fishers of men.'";
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const content = await getContent([
+    "about.title",
+    "about.subtitle",
+    "about.body",
+    "about.tagline",
+    "about.image",
+  ]);
+
   return (
     <section className="min-h-screen bg-[#0d1117]">
       <div className="mx-auto max-w-5xl px-6 py-20">
         <h1 className="font-display text-4xl text-[#f0e6d3] md:text-[56px]">
-          Meet Luca
+          {c(content, "about.title", "Meet Luca")}
         </h1>
         <p className="mt-2 font-condensed text-sm uppercase tracking-widest text-[#c9a84c]">
-          Founder, Reel Purpose
+          {c(content, "about.subtitle", "Founder, Reel Purpose")}
         </p>
 
-        {/* Two-column: story left, photo right (photo pending from Mike) */}
+        {/* Two-column: story left, photo right */}
         <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-2">
           <div className="font-body text-base leading-relaxed text-[rgba(240,230,211,0.7)]">
-            <div className="space-y-5">
-              {INTRO_PARAGRAPHS.map((paragraph, i) => (
-                <p key={i}>{paragraph}</p>
-              ))}
-            </div>
-
-            <div className="mt-5 space-y-1">
-              {LESSON_LINES.map((line, i) => (
-                <p key={i}>{line}</p>
-              ))}
-            </div>
-
-            <div className="mt-5 space-y-5">
-              {MEANING_PARAGRAPHS.map((paragraph, i) => (
-                <p key={i}>{paragraph}</p>
-              ))}
-            </div>
-
-            <div className="mt-5 space-y-1">
-              {CLOSING_LINES.map((line, i) => (
-                <p key={i}>{line}</p>
-              ))}
-            </div>
-
+            <MultilineText
+              value={c(content, "about.body", ABOUT_BODY_FALLBACK)}
+              className="space-y-5"
+              groupClassName="space-y-1"
+            />
             <p className="mt-6 font-display text-xl text-[#f0e6d3]">— Luca</p>
           </div>
 
-          {/* Founder photo */}
-          <div className="sticky top-8 self-start w-full overflow-hidden rounded-lg border border-[rgba(201,168,76,0.2)]">
+          <div className="sticky top-8 w-full self-start overflow-hidden rounded-lg border border-[rgba(201,168,76,0.2)]">
             <Image
-              src="/ourstory.jpeg"
+              src={c(content, "about.image", "/ourstory.jpeg")}
               alt="Luca Giallombardo — Founder, Reel Purpose"
               width={600}
               height={800}
@@ -90,12 +59,10 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* Tagline */}
         <p className="mt-12 text-center font-display text-2xl text-[#c9a84c]">
-          {TAGLINE}
+          {c(content, "about.tagline", "More than fishing. It's a purpose. 🎣🌊")}
         </p>
 
-        {/* Scripture */}
         <blockquote className="mx-auto mt-8 max-w-2xl text-center">
           <p className="font-body text-base italic text-[#7eb8a4]">
             &ldquo;{SCRIPTURE}&rdquo;

@@ -4,7 +4,11 @@ import { useState } from "react";
 
 type Status = "idle" | "loading" | "success" | "already" | "error";
 
-export default function NewsletterForm() {
+export default function NewsletterForm({
+  buttonLabel = "Join the Crew →",
+}: {
+  buttonLabel?: string;
+}) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
@@ -74,7 +78,7 @@ export default function NewsletterForm() {
           disabled={loading}
           className="whitespace-nowrap rounded bg-[#c9a84c] px-6 py-3 font-condensed font-bold uppercase tracking-widest text-[#0d1117] transition-colors hover:bg-[#b8952e] disabled:opacity-70"
         >
-          {loading ? "Subscribing..." : "Join the Crew →"}
+          {loading ? "Subscribing..." : buttonLabel}
         </button>
       </div>
       {status === "error" && errorMsg ? (

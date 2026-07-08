@@ -25,7 +25,13 @@ const LEGAL_LINKS = [
   { label: "Cookie Policy", href: "/cookies" },
 ];
 
-export default function Footer() {
+export default function Footer({
+  tagline,
+  description,
+}: {
+  tagline: string;
+  description: string;
+}) {
   const year = new Date().getFullYear();
   const pathname = usePathname();
 
@@ -49,11 +55,10 @@ export default function Footer() {
               />
             </Link>
             <p className="mt-3 font-condensed text-sm uppercase tracking-widest text-[rgba(240,230,211,0.55)]">
-              Built In Florida. Made For Life.
+              {tagline}
             </p>
             <p className="mt-2 max-w-[200px] font-body text-xs leading-relaxed text-[rgba(240,230,211,0.4)]">
-              Premium fishing apparel inspired by faith, family, and the pursuit
-              of unforgettable days on the water.
+              {description}
             </p>
           </div>
 
