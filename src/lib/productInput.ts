@@ -1,10 +1,11 @@
-import { ProductType, Size, Species } from "@prisma/client";
+import { ProductCategory, ProductType, Size, Species } from "@prisma/client";
 
 export type ProductInput = {
   name: string;
   description: string;
   species: Species;
   type: ProductType;
+  category: ProductCategory;
   price: number; // cents
   sizes: Size[];
   imageUrl: string;
@@ -46,6 +47,13 @@ export function parseProductInput(body: unknown): ProductInput {
   }
   const type = b.type as ProductType;
 
+  // Category defaults to ORIGINALS when missing or invalid.
+  const category =
+    typeof b.category === "string" &&
+    Object.values(ProductCategory).includes(b.category as ProductCategory)
+      ? (b.category as ProductCategory)
+      : ProductCategory.ORIGINALS;
+
   if (
     typeof b.price !== "number" ||
     !Number.isFinite(b.price) ||
@@ -69,6 +77,7 @@ export function parseProductInput(body: unknown): ProductInput {
     description,
     species,
     type,
+    category,
     price,
     sizes,
     imageUrl,

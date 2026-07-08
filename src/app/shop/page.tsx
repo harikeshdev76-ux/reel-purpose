@@ -1,4 +1,4 @@
-import { ProductType, Species } from "@prisma/client";
+import { ProductCategory, ProductType, Species } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import ProductGrid from "@/components/shop/ProductGrid";
 
@@ -8,7 +8,7 @@ export const metadata = {
 };
 
 type ShopPageProps = {
-  searchParams: { species?: string; type?: string };
+  searchParams: { category?: string; species?: string; type?: string };
 };
 
 function parseEnum<T extends Record<string, string>>(
@@ -22,12 +22,14 @@ function parseEnum<T extends Record<string, string>>(
 }
 
 export default async function ShopPage({ searchParams }: ShopPageProps) {
+  const category = parseEnum(ProductCategory, searchParams.category);
   const species = parseEnum(Species, searchParams.species);
   const type = parseEnum(ProductType, searchParams.type);
 
   const products = await prisma.product.findMany({
     where: {
       active: true,
+      ...(category ? { category } : {}),
       ...(species ? { species } : {}),
       ...(type ? { type } : {}),
     },
@@ -37,6 +39,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   return (
     <ProductGrid
       products={products}
+      selectedCategory={category}
       selectedSpecies={species}
       selectedType={type}
     />

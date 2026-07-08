@@ -1,4 +1,10 @@
-import { PrismaClient, ProductType, Size, Species } from "@prisma/client";
+import {
+  PrismaClient,
+  ProductCategory,
+  ProductType,
+  Size,
+  Species,
+} from "@prisma/client";
 import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
@@ -106,6 +112,8 @@ async function main() {
         : "Structured, breathable cap with an embroidered species mark. Made for the tide.",
       species: product.species,
       type: product.type,
+      // Current seeded products are the starter collection.
+      category: ProductCategory.ORIGINALS,
       price: isTee ? TSHIRT_PRICE : HAT_PRICE,
       sizes: isTee ? TSHIRT_SIZES : HAT_SIZES,
       imageUrl: "/placeholder-product.jpg",

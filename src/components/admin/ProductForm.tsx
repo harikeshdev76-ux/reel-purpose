@@ -4,14 +4,25 @@ import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import type { Product, ProductType, Size, Species } from "@prisma/client";
+import type {
+  Product,
+  ProductCategory,
+  ProductType,
+  Size,
+  Species,
+} from "@prisma/client";
 import { SPECIES_LABELS } from "@/lib/species";
 import { PRODUCT_TYPE_LABELS } from "@/lib/productType";
+import { PRODUCT_CATEGORY_LABELS } from "@/lib/productCategory";
 import { SIZE_LABELS } from "@/lib/sizes";
 import DeleteProductButton from "@/components/admin/DeleteProductButton";
 
 const SPECIES_OPTIONS = Object.entries(SPECIES_LABELS) as [Species, string][];
 const TYPE_OPTIONS = Object.entries(PRODUCT_TYPE_LABELS) as [ProductType, string][];
+const CATEGORY_OPTIONS = Object.entries(PRODUCT_CATEGORY_LABELS) as [
+  ProductCategory,
+  string,
+][];
 const SIZE_OPTIONS = Object.entries(SIZE_LABELS) as [Size, string][];
 
 const INPUT_CLASS =
@@ -28,6 +39,9 @@ export default function ProductForm({ product }: { product?: Product }) {
   const [description, setDescription] = useState(product?.description ?? "");
   const [species, setSpecies] = useState<Species | "">(product?.species ?? "");
   const [type, setType] = useState<ProductType | "">(product?.type ?? "");
+  const [category, setCategory] = useState<ProductCategory>(
+    product?.category ?? "ORIGINALS",
+  );
   const [priceInput, setPriceInput] = useState(
     product ? (product.price / 100).toFixed(2) : "",
   );
@@ -91,6 +105,7 @@ export default function ProductForm({ product }: { product?: Product }) {
       description: description.trim(),
       species,
       type,
+      category,
       price: Math.round(dollars * 100),
       sizes,
       imageUrl,
@@ -188,6 +203,21 @@ export default function ProductForm({ product }: { product?: Product }) {
                 ))}
               </select>
             </div>
+          </div>
+
+          <div>
+            <label className={LABEL_CLASS}>Collection</label>
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value as ProductCategory)}
+              className={INPUT_CLASS}
+            >
+              {CATEGORY_OPTIONS.map(([value, label]) => (
+                <option key={value} value={value}>
+                  {label}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div>

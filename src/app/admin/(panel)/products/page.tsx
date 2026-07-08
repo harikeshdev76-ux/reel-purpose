@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { formatPrice } from "@/lib/money";
 import { SPECIES_LABELS } from "@/lib/species";
 import { PRODUCT_TYPE_LABELS } from "@/lib/productType";
+import { PRODUCT_CATEGORY_SHORT } from "@/lib/productCategory";
 import { SIZE_LABELS } from "@/lib/sizes";
 import DeleteProductButton from "@/components/admin/DeleteProductButton";
 
@@ -32,6 +33,7 @@ export default async function ProductsPage() {
                 "Image",
                 "Name",
                 "Species",
+                "Category",
                 "Type",
                 "Price",
                 "Sizes",
@@ -53,7 +55,7 @@ export default async function ProductsPage() {
             {products.length === 0 ? (
               <tr>
                 <td
-                  colSpan={10}
+                  colSpan={11}
                   className="px-4 py-12 text-center font-body text-sm text-[rgba(240,230,211,0.5)]"
                 >
                   No products yet.
@@ -81,6 +83,9 @@ export default async function ProductsPage() {
                   <td className="px-4 py-3 font-body">{product.name}</td>
                   <td className="px-4 py-3 font-body text-[rgba(240,230,211,0.7)]">
                     {SPECIES_LABELS[product.species]}
+                  </td>
+                  <td className="px-4 py-3 font-condensed text-xs uppercase text-[rgba(240,230,211,0.6)]">
+                    {PRODUCT_CATEGORY_SHORT[product.category]}
                   </td>
                   <td className="px-4 py-3 font-body text-[rgba(240,230,211,0.7)]">
                     {PRODUCT_TYPE_LABELS[product.type]}

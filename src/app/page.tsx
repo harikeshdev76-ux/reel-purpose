@@ -167,7 +167,7 @@ export default async function Home() {
           <div className="mx-auto mt-10 grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-3">
             {/* Originals — active, links to shop */}
             <Link
-              href="/shop"
+              href="/shop?category=ORIGINALS"
               className="group block rounded-lg border border-t-2 border-[rgba(201,168,76,0.3)] border-t-[#c9a84c] bg-[#141b22] p-6 transition-colors hover:border-[rgba(201,168,76,0.6)]"
             >
               <p className="mb-2 font-condensed text-xs uppercase tracking-widest text-[#c9a84c]">
