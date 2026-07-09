@@ -204,13 +204,13 @@ export default async function Home() {
               href="/shop?category=ORIGINALS"
               className="group block overflow-hidden rounded-lg border border-t-2 border-[rgba(201,168,76,0.3)] border-t-[#c9a84c] bg-[#141b22] transition-colors hover:border-[rgba(201,168,76,0.6)]"
             >
-              <div className="relative aspect-[16/9] w-full overflow-hidden">
+              <div className="relative aspect-[4/3] w-full overflow-hidden md:aspect-[16/9]">
                 <Image
                   src={c(content, "collections.originals.image", "/Reel-purpose-originals.jpeg")}
                   alt="Reel Purpose Originals Collection"
                   fill
                   sizes="(max-width: 768px) 100vw, 33vw"
-                  className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                  className="object-cover object-center transition-transform duration-500 group-hover:scale-105 md:object-center"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#141b22] via-transparent to-transparent opacity-60" />
               </div>
