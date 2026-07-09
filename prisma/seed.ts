@@ -88,6 +88,9 @@ const SITE_CONTENT: {
   { key: "collections.freshwater.title", value: "FRESHWATER", type: ContentType.TEXT, label: "Freshwater Title", section: "Homepage Collections" },
   { key: "collections.freshwater.subtitle", value: "Where Every Cast Begins", type: ContentType.TEXT, label: "Freshwater Subtitle", section: "Homepage Collections" },
   { key: "collections.freshwater.description", value: "Whether you're chasing bass at sunrise or spending weekends on your favorite lake, our Freshwater Collection celebrates the places where memories are made.", type: ContentType.TEXT, label: "Freshwater Description", section: "Homepage Collections" },
+  { key: "collections.originals.image", value: "/Reel-purpose-originals.jpeg", type: ContentType.IMAGE, label: "Originals Collection Image", section: "Homepage Collections" },
+  { key: "collections.saltwater.image", value: "", type: ContentType.IMAGE, label: "Saltwater Collection Image", section: "Homepage Collections" },
+  { key: "collections.freshwater.image", value: "", type: ContentType.IMAGE, label: "Freshwater Collection Image", section: "Homepage Collections" },
 
   // Homepage Purpose
   { key: "purpose.headline.line1", value: "MORE THAN FISHING.", type: ContentType.TEXT, label: "Purpose Headline Line 1", section: "Homepage Purpose" },

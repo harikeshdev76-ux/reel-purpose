@@ -67,6 +67,9 @@ export default async function Home() {
       "collections.freshwater.title",
       "collections.freshwater.subtitle",
       "collections.freshwater.description",
+      "collections.originals.image",
+      "collections.saltwater.image",
+      "collections.freshwater.image",
       "purpose.headline.line1",
       "purpose.headline.line2",
       "purpose.body",
@@ -199,37 +202,76 @@ export default async function Home() {
             {/* Originals — active, links to shop */}
             <Link
               href="/shop?category=ORIGINALS"
-              className="group block rounded-lg border border-t-2 border-[rgba(201,168,76,0.3)] border-t-[#c9a84c] bg-[#141b22] p-6 transition-colors hover:border-[rgba(201,168,76,0.6)]"
+              className="group block overflow-hidden rounded-lg border border-t-2 border-[rgba(201,168,76,0.3)] border-t-[#c9a84c] bg-[#141b22] transition-colors hover:border-[rgba(201,168,76,0.6)]"
             >
-              <p className="mb-2 font-condensed text-xs uppercase tracking-widest text-[#c9a84c]">
-                {c(content, "collections.originals.eyebrow", "Reel Purpose Originals")}
-              </p>
-              <h3 className="mb-3 font-display text-3xl text-[#f0e6d3]">
-                {c(content, "collections.originals.title", "THE ORIGINALS")}
-              </h3>
-              <p className="mb-4 font-body text-sm leading-relaxed text-[rgba(240,230,211,0.6)]">
-                {c(content, "collections.originals.description", ORIGINALS_DESCRIPTION)}
-              </p>
-              <p className="mb-4 font-condensed text-xs uppercase tracking-widest text-[rgba(240,230,211,0.4)]">
-                {c(content, "collections.originals.tagline", "Simple. Comfortable. Built with Purpose.")}
-              </p>
-              <span className="font-condensed text-sm uppercase tracking-widest text-[#c9a84c] transition-colors group-hover:text-[#b8952e]">
-                Shop Originals →
-              </span>
+              <div className="relative aspect-[16/9] w-full overflow-hidden">
+                <Image
+                  src={c(content, "collections.originals.image", "/Reel-purpose-originals.jpeg")}
+                  alt="Reel Purpose Originals Collection"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#141b22] via-transparent to-transparent opacity-60" />
+              </div>
+              <div className="p-6">
+                <p className="mb-2 font-condensed text-xs uppercase tracking-widest text-[#c9a84c]">
+                  {c(content, "collections.originals.eyebrow", "Reel Purpose Originals")}
+                </p>
+                <h3 className="mb-3 font-display text-3xl text-[#f0e6d3]">
+                  {c(content, "collections.originals.title", "THE ORIGINALS")}
+                </h3>
+                <p className="mb-4 font-body text-sm leading-relaxed text-[rgba(240,230,211,0.6)]">
+                  {c(content, "collections.originals.description", ORIGINALS_DESCRIPTION)}
+                </p>
+                <p className="mb-4 font-condensed text-xs uppercase tracking-widest text-[rgba(240,230,211,0.4)]">
+                  {c(content, "collections.originals.tagline", "Simple. Comfortable. Built with Purpose.")}
+                </p>
+                <span className="font-condensed text-sm uppercase tracking-widest text-[#c9a84c] transition-colors group-hover:text-[#b8952e]">
+                  Shop Originals →
+                </span>
+              </div>
             </Link>
 
             {/* Saltwater + Freshwater — coming soon, not clickable */}
             {comingSoon.map((collection) => (
               <div
                 key={collection.title}
-                className="cursor-default rounded-lg border border-[rgba(255,255,255,0.06)] bg-[rgba(20,27,34,0.5)] p-6 opacity-75"
+                className="cursor-default overflow-hidden rounded-lg border border-[rgba(255,255,255,0.06)] bg-[rgba(20,27,34,0.5)] opacity-75"
               >
-                <span className="mb-3 inline-block rounded-full bg-[rgba(201,168,76,0.1)] px-3 py-1 font-condensed text-xs uppercase tracking-widest text-[#c9a84c]">
-                  Coming Soon
-                </span>
-                <h3 className="mb-2 font-display text-3xl text-[rgba(240,230,211,0.4)]">
-                  {collection.title}
-                </h3>
+                {/* Coming Soon image placeholder */}
+                <div className="flex aspect-[16/9] w-full flex-col items-center justify-center gap-2 border-b border-[rgba(255,255,255,0.06)] bg-[rgba(255,255,255,0.03)]">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="h-8 w-8 text-[rgba(240,230,211,0.15)]"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z"
+                    />
+                  </svg>
+                  <span className="font-condensed text-xs uppercase tracking-widest text-[rgba(240,230,211,0.2)]">
+                    Coming Soon
+                  </span>
+                </div>
+
+                <div className="p-6">
+                  <span className="mb-3 inline-block rounded-full bg-[rgba(201,168,76,0.1)] px-3 py-1 font-condensed text-xs uppercase tracking-widest text-[#c9a84c]">
+                    Coming Soon
+                  </span>
+                  <h3 className="mb-2 font-display text-3xl text-[rgba(240,230,211,0.4)]">
+                    {collection.title}
+                  </h3>
                 <p className="mb-2 font-display text-xl text-[rgba(240,230,211,0.3)]">
                   {collection.subtitle}
                 </p>
@@ -244,9 +286,10 @@ export default async function Home() {
                     ? "Tarpon • Snook • Redfish • Tuna • Mahi"
                     : "Bass • River • Lake"}
                 </p>
-                <span className="font-condensed text-xs uppercase tracking-widest text-[rgba(240,230,211,0.3)]">
-                  Launching Soon
-                </span>
+                  <span className="font-condensed text-xs uppercase tracking-widest text-[rgba(240,230,211,0.3)]">
+                    Launching Soon
+                  </span>
+                </div>
               </div>
             ))}
           </div>
