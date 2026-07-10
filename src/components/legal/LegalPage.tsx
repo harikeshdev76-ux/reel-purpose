@@ -6,9 +6,11 @@ export type LegalSection = { heading: string; body: ReactNode };
 export default function LegalPage({
   title,
   sections,
+  dateLine = "Last updated: July 2026",
 }: {
   title: string;
   sections: LegalSection[];
+  dateLine?: string;
 }) {
   return (
     <div className="min-h-screen bg-[#0d1117]">
@@ -22,7 +24,7 @@ export default function LegalPage({
 
         <h1 className="mb-2 font-display text-5xl text-[#f0e6d3]">{title}</h1>
         <p className="mb-10 font-condensed text-xs uppercase tracking-widest text-[#c9a84c]">
-          Last updated: July 2026
+          {dateLine}
         </p>
 
         {sections.map((section, i) => (
