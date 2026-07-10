@@ -132,6 +132,90 @@ const SITE_CONTENT: {
   // Footer
   { key: "footer.tagline", value: "Built In Florida. Made For Life.", type: ContentType.TEXT, label: "Footer Tagline", section: "Footer" },
   { key: "footer.description", value: "Premium fishing apparel inspired by faith, family, and the pursuit of unforgettable days on the water.", type: ContentType.TEXT, label: "Footer Brand Description", section: "Footer" },
+
+  // Legal Pages
+  { key: "legal.privacy.effectiveDate", value: "Effective Date: July 2026", type: ContentType.TEXT, label: "Privacy Policy Effective Date", section: "Legal Pages" },
+  {
+    key: "legal.privacy.content",
+    type: ContentType.TEXT,
+    label: "Privacy Policy Content (Use ## Heading for section titles, blank line between paragraphs)",
+    section: "Legal Pages",
+    value: `## Welcome
+Welcome to Reel Purpose LLC ("Reel Purpose," "we," "our," or "us"). This Privacy Policy explains how we collect, use, disclose, process, and safeguard personal information when you visit https://reelpurpose.fishing (the "Site"), purchase products, create an account, subscribe to emails or SMS, participate in promotions, contact customer service, or otherwise interact with us.
+
+## Information We Collect
+We may collect your name, email address, phone number, billing and shipping address, payment information (processed by secure third-party payment processors), order history, product preferences, account credentials, and communications with our customer service team. We also collect device information, browser information, IP address, shopping activity, pages visited, and cookie data.
+
+## How We Use Information
+We use personal information to process orders, provide customer support, communicate order updates, send marketing communications (with your consent where required), personalize your shopping experience, improve our products and Website, prevent fraud, comply with legal obligations, and administer promotions.
+
+## Cookies & Analytics
+We use cookies, pixels, and similar technologies to remember shopping carts, save preferences, improve Website performance, analyze visitor behavior, and provide relevant advertising. We may use providers such as Google Analytics, Meta Pixel, and similar services.
+
+## Sharing Information
+We do not sell your personal information. We may share information with trusted service providers that assist with payment processing, shipping, order fulfillment, marketing, analytics, fraud prevention, accounting, and Website hosting. We may also disclose information when required by law or in connection with a business transaction.
+
+## Marketing
+If you subscribe to our marketing emails or SMS messages, we may send information regarding new product launches, promotions, limited releases, fishing content, and company news. You may unsubscribe at any time.
+
+## Children
+Our Website is intended for users age 18 or older. We do not knowingly collect personal information from children under 13.
+
+## Security
+We maintain commercially reasonable administrative, technical, and physical safeguards to protect your personal information; however, no Internet transmission or electronic storage method is completely secure.
+
+## Your Rights
+Depending on your location, you may have the right to access, correct, delete, or request a copy of your personal information, opt out of certain marketing communications, and exercise applicable privacy rights under state law.
+
+## Changes
+We may update this Privacy Policy periodically. Updates become effective upon posting to the Website.
+
+## Contact
+Reel Purpose LLC
+Website: https://reelpurpose.fishing
+Privacy Email: privacy@reelpurpose.fishing`,
+  },
+  { key: "legal.terms.effectiveDate", value: "Last updated: July 2026", type: ContentType.TEXT, label: "Terms of Service Effective Date", section: "Legal Pages" },
+  {
+    key: "legal.terms.content",
+    type: ContentType.TEXT,
+    label: "Terms of Service Content (Use ## Heading for section titles, blank line between paragraphs)",
+    section: "Legal Pages",
+    value: `## Acceptance of Terms
+By accessing reelpurpose.fishing, you agree to be bound by these Terms of Service.
+
+[Full terms to be provided by legal counsel]
+
+## Products and Purchases
+[Content to be provided by legal counsel]
+
+## Returns and Refunds
+[Content to be provided by legal counsel]
+
+## Contact Us
+For questions about these Terms, contact us at reelpurpose.fishing`,
+  },
+  { key: "legal.cookies.effectiveDate", value: "Last updated: July 2026", type: ContentType.TEXT, label: "Cookie Policy Effective Date", section: "Legal Pages" },
+  {
+    key: "legal.cookies.content",
+    type: ContentType.TEXT,
+    label: "Cookie Policy Content (Use ## Heading for section titles, blank line between paragraphs)",
+    section: "Legal Pages",
+    value: `## What Are Cookies
+Cookies are small text files stored on your device when you visit our website.
+
+## How We Use Cookies
+We use cookies to:
+• Remember your preferences
+• Keep you signed in to your account
+• Understand how you use our site to improve your experience
+
+## Managing Cookies
+You can control cookies through your browser settings. Note that disabling cookies may affect the functionality of our site.
+
+## Contact Us
+For questions about our Cookie Policy, contact us at reelpurpose.fishing`,
+  },
 ];
 
 async function main() {

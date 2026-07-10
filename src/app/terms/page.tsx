@@ -1,39 +1,32 @@
 import type { Metadata } from "next";
 import LegalPage, { type LegalSection } from "@/components/legal/LegalPage";
+import { getContent, c } from "@/lib/content";
+import { parseLegalContent } from "@/lib/renderLegalContent";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Terms of Service — Reel Purpose",
 };
 
-const SECTIONS: LegalSection[] = [
-  {
-    heading: "1. Acceptance of Terms",
-    body: (
-      <>
-        <p>
-          By accessing reelpurpose.fishing, you agree to be bound by these Terms
-          of Service.
-        </p>
-        <p>[Full terms to be provided by legal counsel]</p>
-      </>
-    ),
-  },
-  {
-    heading: "2. Products and Purchases",
-    body: <p>[Content to be provided by legal counsel]</p>,
-  },
-  {
-    heading: "3. Returns and Refunds",
-    body: <p>[Content to be provided by legal counsel]</p>,
-  },
-  {
-    heading: "4. Contact Us",
-    body: (
-      <p>For questions about these Terms, contact us at reelpurpose.fishing</p>
-    ),
-  },
-];
+export default async function TermsPage() {
+  const content = await getContent([
+    "legal.terms.effectiveDate",
+    "legal.terms.content",
+  ]);
 
-export default function TermsPage() {
-  return <LegalPage title="TERMS OF SERVICE" sections={SECTIONS} />;
+  const sections: LegalSection[] = parseLegalContent(
+    c(content, "legal.terms.content", ""),
+  ).map((section, i) => ({
+    heading: `${i + 1}. ${section.title}`,
+    body: <p className="whitespace-pre-line">{section.content}</p>,
+  }));
+
+  return (
+    <LegalPage
+      title="TERMS OF SERVICE"
+      dateLine={c(content, "legal.terms.effectiveDate", "Last updated: July 2026")}
+      sections={sections}
+    />
+  );
 }
