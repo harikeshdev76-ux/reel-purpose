@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Prisma } from "@prisma/client";
 import { formatUSD } from "@/lib/money";
 import StatusBadge from "@/components/admin/StatusBadge";
@@ -40,6 +41,13 @@ export default function OrderCard({ order }: { order: OrderCardData }) {
           {formatUSD(order.total)}
         </span>
       </div>
+
+      <Link
+        href={`/account/orders/${order.id}`}
+        className="mt-3 inline-block font-condensed text-xs uppercase tracking-widest text-[#c9a84c] transition-colors hover:text-[#b8952e]"
+      >
+        View Details →
+      </Link>
     </div>
   );
 }
