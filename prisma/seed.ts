@@ -175,25 +175,65 @@ Reel Purpose LLC
 Website: https://reelpurpose.fishing
 Privacy Email: privacy@reelpurpose.fishing`,
   },
-  { key: "legal.terms.effectiveDate", value: "Last updated: July 2026", type: ContentType.TEXT, label: "Terms of Service Effective Date", section: "Legal Pages" },
+  { key: "legal.terms.effectiveDate", value: "Last Updated: July 2026", type: ContentType.TEXT, label: "Terms of Service Effective Date", section: "Legal Pages" },
   {
     key: "legal.terms.content",
     type: ContentType.TEXT,
     label: "Terms of Service Content (Use ## Heading for section titles, blank line between paragraphs)",
     section: "Legal Pages",
-    value: `## Acceptance of Terms
-By accessing reelpurpose.fishing, you agree to be bound by these Terms of Service.
+    value: `## Overview
+These Terms & Conditions ("Terms") govern your use of https://reelpurpose.fishing (the "Website") and any products or services offered by Reel Purpose LLC ("Reel Purpose," "we," "our," or "us"). To place an order, you must affirmatively accept these Terms at checkout by checking an unchecked-by-default box indicating your agreement. By checking that box and placing an order, you agree that these Terms (including any dispute resolution and limitation of liability provisions), our Privacy Policy, Shipping Policy, Return Policy, and any other posted policies are enforceable and apply to your order and use of the Website.
 
-[Full terms to be provided by legal counsel]
+## Product Descriptions
+We strive to accurately describe our fishing apparel, hats, and accessories. Colors, images, sizing, and product availability may vary slightly depending on your device and manufacturing updates. We reserve the right to correct typographical, technical, photographic, or listing errors and to modify products, pricing, and specifications without notice.
 
-## Products and Purchases
-[Content to be provided by legal counsel]
+## Orders
+All orders are offers and are subject to acceptance and availability. We reserve the right to refuse or cancel orders, limit quantities, correct errors, or suspend access to the Website, including for suspected fraud, unauthorized transactions, promotion abuse, excessive returns, suspected resale activity, policy violations, or other misuse, including after an order has been confirmed and/or your payment method has been charged. If you have been charged and we issue a refund, the refund will be made to the original payment method.
 
-## Returns and Refunds
-[Content to be provided by legal counsel]
+## Billing & Payment
+All prices are in U.S. Dollars. Payments are securely processed through third-party payment providers such as Stripe or other approved processors. Applicable sales tax will be collected where required by law.
 
-## Contact Us
-For questions about these Terms, contact us at reelpurpose.fishing`,
+## Shipping, Returns & Exchanges
+If you have any issue with a product, your sole and exclusive remedy is, at Reel Purpose's option, replacement of the product or a refund of the amount you paid. Shipping estimates are not guaranteed. Title and risk of loss pass to you upon our tender of the products to the carrier. You are responsible for providing an accurate shipping address. Please refer to our Shipping Policy and Return & Exchange Policy for complete details.
+
+## Warranty Disclaimer
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, PRODUCTS ARE PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT ANY WARRANTIES OF ANY KIND, WHETHER EXPRESS, IMPLIED, OR STATUTORY, INCLUDING ANY IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT.
+
+## Intellectual Property
+All Reel Purpose names, logos, artwork, apparel designs, product photography, graphics, text, and Website content are the exclusive property of Reel Purpose LLC and may not be copied, reproduced, distributed, or used without prior written permission.
+
+## Website Use
+You are granted a limited, non-exclusive license to use the Website for personal, non-commercial purposes. You may not copy, scrape, reverse engineer, or misuse the Website or its content.
+
+## User Content
+If you submit reviews, photos, fishing stories, or other content, you grant Reel Purpose LLC a non-exclusive, worldwide, perpetual, royalty-free license to use, reproduce, modify, distribute, and publicly display that content for marketing and business purposes, while you retain ownership of your original content. Reel Purpose LLC may remove or moderate any content at any time in its sole discretion.
+
+## Indemnification
+You agree to indemnify, defend, and hold harmless Reel Purpose LLC and its affiliates from and against any third-party claims arising out of your use of the Website, your violation of these Terms, or your User Content.
+
+## Limitation of Liability
+To the maximum extent permitted by law, Reel Purpose LLC shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising out of your use of the Website or any products. Reel Purpose LLC's total liability for any claim shall not exceed the amount actually paid by you for the product(s) giving rise to the claim.
+
+## Disclaimer
+The Website and all content are provided "AS IS" and "AS AVAILABLE." We do not guarantee uninterrupted or error-free operation.
+
+## Children
+The Website is intended for individuals 18 years of age or older or those using the Website with parental or guardian supervision.
+
+## Governing Law
+These Terms shall be governed by the laws of the State of Florida, without regard to conflict of law principles.
+
+## Dispute Resolution
+Before initiating arbitration, you and Reel Purpose LLC agree to first provide written notice and attempt in good faith to resolve the dispute for at least thirty (30) days. Any dispute will be resolved by binding individual arbitration administered by the American Arbitration Association (AAA) under its Consumer Arbitration Rules, and not in court, except that either party may bring an individual action in small claims court if the claim qualifies. YOU AND REEL PURPOSE LLC AGREE THAT EACH MAY BRING CLAIMS AGAINST THE OTHER ONLY IN YOUR OR ITS INDIVIDUAL CAPACITY, AND NOT AS A PLAINTIFF OR CLASS MEMBER IN ANY PURPORTED CLASS OR REPRESENTATIVE PROCEEDING.
+
+## Changes
+We may modify these Terms at any time by posting updated versions on the Website. Each order is governed by the version of the Terms in effect at checkout.
+
+## Contact
+Reel Purpose LLC
+Website: https://reelpurpose.fishing
+General: reelpurpose@outlook.com
+Legal/Privacy: privacy@reelpurpose.fishing`,
   },
   { key: "legal.cookies.effectiveDate", value: "Last updated: July 2026", type: ContentType.TEXT, label: "Cookie Policy Effective Date", section: "Legal Pages" },
   {
