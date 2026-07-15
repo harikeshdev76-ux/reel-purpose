@@ -13,12 +13,22 @@ const ALLOWED_TYPES: Record<string, string> = {
 };
 
 export async function POST(req: Request) {
+  let formData: FormData;
   try {
-    const formData = await req.formData();
+    formData = await req.formData();
+  } catch {
+    return NextResponse.json({ error: "No file provided" }, { status: 400 });
+  }
+
+  try {
     const file = formData.get("file");
 
     if (!(file instanceof File)) {
       return NextResponse.json({ error: "No file provided" }, { status: 400 });
+    }
+
+    if (file.size === 0) {
+      return NextResponse.json({ error: "File is empty." }, { status: 400 });
     }
 
     const ext = ALLOWED_TYPES[file.type];
