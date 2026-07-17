@@ -5,6 +5,7 @@ import { formatPrice } from "@/lib/money";
 import { SPECIES_LABELS } from "@/lib/species";
 import { PRODUCT_TYPE_LABELS } from "@/lib/productType";
 import { PRODUCT_CATEGORY_SHORT } from "@/lib/productCategory";
+import { getProductColor } from "@/lib/productColors";
 import { SIZE_LABELS } from "@/lib/sizes";
 import DeleteProductButton from "@/components/admin/DeleteProductButton";
 
@@ -37,6 +38,7 @@ export default async function ProductsPage() {
                 "Type",
                 "Price",
                 "Sizes",
+                "Colors",
                 "Stock",
                 "Featured",
                 "Active",
@@ -55,7 +57,7 @@ export default async function ProductsPage() {
             {products.length === 0 ? (
               <tr>
                 <td
-                  colSpan={11}
+                  colSpan={12}
                   className="px-4 py-12 text-center font-body text-sm text-[rgba(240,230,211,0.5)]"
                 >
                   No products yet.
@@ -99,6 +101,25 @@ export default async function ProductsPage() {
                   </td>
                   <td className="px-4 py-3 font-body text-[rgba(240,230,211,0.7)]">
                     {product.sizes.map((s) => SIZE_LABELS[s]).join(", ") || "—"}
+                  </td>
+                  <td className="px-4 py-3">
+                    {product.colors.length > 0 ? (
+                      <div className="flex flex-wrap gap-1">
+                        {product.colors.map((code) => {
+                          const col = getProductColor(code);
+                          return (
+                            <span
+                              key={code}
+                              title={col?.label ?? code}
+                              className="h-4 w-4 rounded-full border border-[rgba(255,255,255,0.1)]"
+                              style={{ backgroundColor: col?.hex ?? "#888888" }}
+                            />
+                          );
+                        })}
+                      </div>
+                    ) : (
+                      <span className="text-[rgba(240,230,211,0.3)]">—</span>
+                    )}
                   </td>
                   <td className="px-4 py-3">
                     {product.inStock ? (

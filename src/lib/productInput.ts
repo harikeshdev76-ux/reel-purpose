@@ -1,4 +1,5 @@
 import { ProductCategory, ProductType, Size, Species } from "@prisma/client";
+import { PRODUCT_COLOR_VALUES } from "@/lib/productColors";
 
 export type ProductInput = {
   name: string;
@@ -8,6 +9,7 @@ export type ProductInput = {
   category: ProductCategory;
   price: number; // cents
   sizes: Size[];
+  colors: string[];
   imageUrl: string;
   featured: boolean;
   active: boolean;
@@ -72,6 +74,13 @@ export function parseProductInput(body: unknown): ProductInput {
       typeof s === "string" && Object.values(Size).includes(s as Size),
   );
 
+  const colors = Array.isArray(b.colors)
+    ? b.colors.filter(
+        (col): col is string =>
+          typeof col === "string" && PRODUCT_COLOR_VALUES.includes(col),
+      )
+    : [];
+
   const imageUrl = typeof b.imageUrl === "string" ? b.imageUrl.trim() : "";
   if (!imageUrl) throw new Error("Image is required");
 
@@ -83,6 +92,7 @@ export function parseProductInput(body: unknown): ProductInput {
     category,
     price,
     sizes,
+    colors,
     imageUrl,
     featured: Boolean(b.featured),
     active: b.active === undefined ? true : Boolean(b.active),

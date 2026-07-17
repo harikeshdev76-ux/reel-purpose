@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { formatUSD } from "@/lib/money";
 import { SIZE_LABELS } from "@/lib/sizes";
+import { colorLabel } from "@/lib/productColors";
 import StatusBadge from "@/components/admin/StatusBadge";
 import OrderActions from "@/components/admin/OrderActions";
 
@@ -75,7 +76,7 @@ export default async function OrderDetailPage({ params }: OrderDetailProps) {
             <table className="w-full min-w-[480px]">
               <thead>
                 <tr className="text-left">
-                  {["Product", "Size", "Qty", "Price", "Line Total"].map((h) => (
+                  {["Product", "Size", "Color", "Qty", "Price", "Line Total"].map((h) => (
                     <th
                       key={h}
                       className="border-b border-[rgba(255,255,255,0.08)] py-2 font-body text-xs uppercase tracking-widest text-[rgba(240,230,211,0.4)]"
@@ -93,6 +94,9 @@ export default async function OrderDetailPage({ params }: OrderDetailProps) {
                   >
                     <td className="py-2 pr-4">{item.product.name}</td>
                     <td className="py-2 pr-4">{SIZE_LABELS[item.size]}</td>
+                    <td className="py-2 pr-4">
+                      {item.color ? colorLabel(item.color) : "—"}
+                    </td>
                     <td className="py-2 pr-4">{item.quantity}</td>
                     <td className="py-2 pr-4">{formatUSD(item.price)}</td>
                     <td className="py-2">{formatUSD(item.price * item.quantity)}</td>

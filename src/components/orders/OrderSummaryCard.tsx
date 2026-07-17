@@ -1,5 +1,6 @@
 import type { Prisma } from "@prisma/client";
 import { formatUSD } from "@/lib/money";
+import { colorLabel } from "@/lib/productColors";
 
 export type OrderForSummary = Prisma.OrderGetPayload<{
   include: { items: { include: { product: true } } };
@@ -37,6 +38,11 @@ export default function OrderSummaryCard({
               <span className="ml-2 rounded bg-[rgba(201,168,76,0.1)] px-2 py-0.5 font-condensed text-xs uppercase text-[#c9a84c]">
                 {item.size}
               </span>
+              {item.color && (
+                <span className="ml-2 rounded bg-[rgba(201,168,76,0.1)] px-2 py-0.5 font-condensed text-xs uppercase text-[#c9a84c]">
+                  {colorLabel(item.color)}
+                </span>
+              )}
             </span>
             <span className="whitespace-nowrap text-sm text-[rgba(240,230,211,0.6)]">
               {item.quantity} × {formatUSD(item.price)}

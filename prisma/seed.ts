@@ -13,6 +13,9 @@ const prisma = new PrismaClient();
 const TSHIRT_SIZES: Size[] = [Size.S, Size.M, Size.L, Size.XL, Size.XXL];
 const HAT_SIZES: Size[] = [Size.ONE_SIZE];
 
+const TSHIRT_COLORS = ["WHITE", "SAND", "ICE_BLUE", "SILVER", "SALMON"];
+const HAT_COLORS = ["NAVY", "WHITE", "BLACK"];
+
 const TSHIRT_PRICE = 3800; // $38.00 in cents
 const HAT_PRICE = 3200; // $32.00 in cents
 
@@ -317,6 +320,7 @@ async function main() {
       category: ProductCategory.ORIGINALS,
       price: isTee ? TSHIRT_PRICE : HAT_PRICE,
       sizes: isTee ? TSHIRT_SIZES : HAT_SIZES,
+      colors: isTee ? TSHIRT_COLORS : HAT_COLORS,
       imageUrl: "/placeholder-product.jpg",
       featured: product.featured,
       active: true,

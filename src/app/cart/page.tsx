@@ -8,6 +8,7 @@ import { useCart } from "@/context/CartContext";
 import { calculateTotal } from "@/lib/tax";
 import { formatPrice } from "@/lib/money";
 import { SPECIES_LABELS } from "@/lib/species";
+import { getProductColor, colorLabel } from "@/lib/productColors";
 
 export default function CartPage() {
   const { items, removeItem, updateQuantity, subtotal } = useCart();
@@ -76,6 +77,7 @@ export default function CartPage() {
             productId: i.productId,
             size: i.size,
             quantity: i.quantity,
+            color: i.color,
           })),
         }),
       });
@@ -114,7 +116,7 @@ export default function CartPage() {
               <ul className="space-y-5">
                 {items.map((item) => (
                   <li
-                    key={`${item.productId}-${item.size}`}
+                    key={`${item.productId}-${item.size}-${item.color ?? ""}`}
                     className="flex gap-4 border border-brand-border bg-brand-surface p-4"
                   >
                     <div className="relative h-[60px] w-[60px] flex-shrink-0 overflow-hidden rounded bg-black/10">
@@ -145,6 +147,20 @@ export default function CartPage() {
                       <p className="mt-1 font-condensed text-xs uppercase tracking-widest text-brand-textMuted">
                         Size: {item.size}
                       </p>
+                      {item.color && (
+                        <div className="mt-1 flex items-center gap-1.5">
+                          <span
+                            className="h-3 w-3 rounded-full border border-[rgba(0,0,0,0.1)]"
+                            style={{
+                              backgroundColor:
+                                getProductColor(item.color)?.hex ?? "#888888",
+                            }}
+                          />
+                          <span className="font-condensed text-xs uppercase tracking-widest text-brand-textMuted">
+                            {colorLabel(item.color)}
+                          </span>
+                        </div>
+                      )}
                       <div className="mt-3 flex items-center justify-between">
                         <div className="flex items-center border border-brand-border">
                           <button
@@ -154,6 +170,7 @@ export default function CartPage() {
                               updateQuantity(
                                 item.productId,
                                 item.size,
+                                item.color,
                                 item.quantity - 1,
                               )
                             }
@@ -171,6 +188,7 @@ export default function CartPage() {
                               updateQuantity(
                                 item.productId,
                                 item.size,
+                                item.color,
                                 item.quantity + 1,
                               )
                             }
@@ -181,7 +199,9 @@ export default function CartPage() {
                         </div>
                         <button
                           type="button"
-                          onClick={() => removeItem(item.productId, item.size)}
+                          onClick={() =>
+                            removeItem(item.productId, item.size, item.color)
+                          }
                           className="font-condensed text-xs uppercase tracking-widest text-brand-textMuted transition-colors hover:text-brand-rust"
                         >
                           Remove

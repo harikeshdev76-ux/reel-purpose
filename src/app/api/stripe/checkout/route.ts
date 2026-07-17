@@ -5,8 +5,14 @@ import { stripe } from "@/lib/stripe";
 import { prisma } from "@/lib/prisma";
 import { authOptions } from "@/lib/auth";
 import { calculateTotal } from "@/lib/tax";
+import { colorLabel } from "@/lib/productColors";
 
-type IncomingItem = { productId: string; size: Size; quantity: number };
+type IncomingItem = {
+  productId: string;
+  size: Size;
+  quantity: number;
+  color?: string;
+};
 
 function appUrl(): string {
   return process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
@@ -51,7 +57,13 @@ export async function POST(req: Request) {
         const product = byId.get(i.productId);
         if (!product) return null;
         const quantity = Math.max(1, Math.floor(i.quantity || 1));
-        return { product, size: i.size, quantity, price: product.price };
+        return {
+          product,
+          size: i.size,
+          quantity,
+          price: product.price,
+          color: i.color ?? null,
+        };
       })
       .filter((x): x is NonNullable<typeof x> => x !== null);
 
@@ -83,6 +95,7 @@ export async function POST(req: Request) {
           create: lineItems.map((li) => ({
             productId: li.product.id,
             size: li.size,
+            color: li.color,
             quantity: li.quantity,
             price: li.price,
           })),
@@ -98,7 +111,9 @@ export async function POST(req: Request) {
           price_data: {
             currency: "usd",
             product_data: {
-              name: `${li.product.name} — ${li.size}`,
+              name: li.color
+                ? `${li.product.name} — ${colorLabel(li.color)} / ${li.size}`
+                : `${li.product.name} — ${li.size}`,
               images: [absoluteImage(li.product.imageUrl)],
             },
             unit_amount: li.price,

@@ -14,6 +14,7 @@ import type {
 import { SPECIES_LABELS } from "@/lib/species";
 import { PRODUCT_TYPE_LABELS } from "@/lib/productType";
 import { PRODUCT_CATEGORY_LABELS } from "@/lib/productCategory";
+import { PRODUCT_COLORS } from "@/lib/productColors";
 import { SIZE_LABELS } from "@/lib/sizes";
 import DeleteProductButton from "@/components/admin/DeleteProductButton";
 
@@ -46,6 +47,7 @@ export default function ProductForm({ product }: { product?: Product }) {
     product ? (product.price / 100).toFixed(2) : "",
   );
   const [sizes, setSizes] = useState<Size[]>(product?.sizes ?? []);
+  const [colors, setColors] = useState<string[]>(product?.colors ?? []);
   const [featured, setFeatured] = useState(product?.featured ?? false);
   const [active, setActive] = useState(product?.active ?? true);
   const [inStock, setInStock] = useState(product?.inStock ?? true);
@@ -59,6 +61,14 @@ export default function ProductForm({ product }: { product?: Product }) {
   const toggleSize = (size: Size) => {
     setSizes((prev) =>
       prev.includes(size) ? prev.filter((s) => s !== size) : [...prev, size],
+    );
+  };
+
+  const toggleColor = (color: string) => {
+    setColors((prev) =>
+      prev.includes(color)
+        ? prev.filter((c) => c !== color)
+        : [...prev, color],
     );
   };
 
@@ -112,6 +122,7 @@ export default function ProductForm({ product }: { product?: Product }) {
       category,
       price: Math.round(dollars * 100),
       sizes,
+      colors,
       imageUrl,
       featured,
       active,
@@ -256,6 +267,35 @@ export default function ProductForm({ product }: { product?: Product }) {
                     }`}
                   >
                     {label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <div>
+            <label className={LABEL_CLASS}>Available Colors</label>
+            <div className="flex flex-wrap gap-2">
+              {PRODUCT_COLORS.map((color) => {
+                const selected = colors.includes(color.value);
+                return (
+                  <button
+                    key={color.value}
+                    type="button"
+                    onClick={() => toggleColor(color.value)}
+                    className={`flex items-center gap-2 rounded border px-3 py-2 transition-colors ${
+                      selected
+                        ? "border-[#c9a84c] bg-[rgba(201,168,76,0.15)] text-[#c9a84c]"
+                        : "border-[rgba(255,255,255,0.08)] bg-[#222840] text-[rgba(240,230,211,0.6)]"
+                    }`}
+                  >
+                    <span
+                      className="h-4 w-4 rounded-full border border-[rgba(255,255,255,0.2)]"
+                      style={{ backgroundColor: color.hex }}
+                    />
+                    <span className="font-condensed text-xs uppercase">
+                      {color.label}
+                    </span>
                   </button>
                 );
               })}
