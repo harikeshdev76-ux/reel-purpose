@@ -84,8 +84,12 @@ export default function ProductForm({ product }: { product?: Product }) {
   };
 
   const handleSubmit = async () => {
-    if (!name.trim() || !description.trim() || !species || !type) {
+    if (!name.trim() || !description.trim() || !type) {
       setError("Please fill in all required fields.");
+      return;
+    }
+    if (category !== "ORIGINALS" && !species) {
+      setError("Please select a species for this collection.");
       return;
     }
     const dollars = parseFloat(priceInput);
@@ -103,7 +107,7 @@ export default function ProductForm({ product }: { product?: Product }) {
     const body = {
       name: name.trim(),
       description: description.trim(),
-      species,
+      species: category === "ORIGINALS" ? null : species,
       type,
       category,
       price: Math.round(dollars * 100),
@@ -172,21 +176,23 @@ export default function ProductForm({ product }: { product?: Product }) {
           </div>
 
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-            <div>
-              <label className={LABEL_CLASS}>Species</label>
-              <select
-                value={species}
-                onChange={(e) => setSpecies(e.target.value as Species)}
-                className={INPUT_CLASS}
-              >
-                <option value="">Select species…</option>
-                {SPECIES_OPTIONS.map(([value, label]) => (
-                  <option key={value} value={value}>
-                    {label}
-                  </option>
-                ))}
-              </select>
-            </div>
+            {category !== "ORIGINALS" && (
+              <div>
+                <label className={LABEL_CLASS}>Species</label>
+                <select
+                  value={species}
+                  onChange={(e) => setSpecies(e.target.value as Species)}
+                  className={INPUT_CLASS}
+                >
+                  <option value="">Select Species</option>
+                  {SPECIES_OPTIONS.map(([value, label]) => (
+                    <option key={value} value={value}>
+                      {label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
 
             <div>
               <label className={LABEL_CLASS}>Product Type</label>

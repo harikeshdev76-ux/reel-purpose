@@ -3,7 +3,7 @@ import { ProductCategory, ProductType, Size, Species } from "@prisma/client";
 export type ProductInput = {
   name: string;
   description: string;
-  species: Species;
+  species: Species | null;
   type: ProductType;
   category: ProductCategory;
   price: number; // cents
@@ -32,14 +32,6 @@ export function parseProductInput(body: unknown): ProductInput {
   if (!description) throw new Error("Description is required");
 
   if (
-    typeof b.species !== "string" ||
-    !Object.values(Species).includes(b.species as Species)
-  ) {
-    throw new Error("Invalid species");
-  }
-  const species = b.species as Species;
-
-  if (
     typeof b.type !== "string" ||
     !Object.values(ProductType).includes(b.type as ProductType)
   ) {
@@ -53,6 +45,17 @@ export function parseProductInput(body: unknown): ProductInput {
     Object.values(ProductCategory).includes(b.category as ProductCategory)
       ? (b.category as ProductCategory)
       : ProductCategory.ORIGINALS;
+
+  // Species is required for SALTWATER/FRESHWATER, optional (null) for ORIGINALS.
+  const parsedSpecies =
+    typeof b.species === "string" &&
+    Object.values(Species).includes(b.species as Species)
+      ? (b.species as Species)
+      : null;
+  if (category !== ProductCategory.ORIGINALS && !parsedSpecies) {
+    throw new Error("Species is required for this collection.");
+  }
+  const species = parsedSpecies;
 
   if (
     typeof b.price !== "number" ||

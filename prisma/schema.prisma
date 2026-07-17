@@ -12,7 +12,7 @@ model Product {
   name        String
   slug        String   @unique
   description String
-  species     Species
+  species     Species?
   type        ProductType
   category    ProductCategory @default(ORIGINALS)
   price       Int      // Cents (e.g. 3800 = $38.00)

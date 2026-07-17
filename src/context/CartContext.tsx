@@ -15,7 +15,7 @@ export type CartItem = {
   productName: string;
   productSlug: string;
   imageUrl: string;
-  species: Species;
+  species: Species | null;
   price: number; // cents
   size: Size;
   quantity: number;

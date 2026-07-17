@@ -84,12 +84,14 @@ export default function ProductGrid({
               </button>
             ))}
           </div>
-          <SpeciesFilter
-            selected={selectedSpecies}
-            onSelect={(species) =>
-              pushFilter(selectedCategory, species, selectedType)
-            }
-          />
+          {selectedCategory !== "ORIGINALS" && (
+            <SpeciesFilter
+              selected={selectedSpecies}
+              onSelect={(species) =>
+                pushFilter(selectedCategory, species, selectedType)
+              }
+            />
+          )}
           <div className="flex flex-wrap gap-3">
             {TYPE_TABS.map((tab) => (
               <button

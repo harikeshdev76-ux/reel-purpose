@@ -65,7 +65,11 @@ export default async function VendorProductsPage() {
                   </td>
                   <td className="px-4 py-3 font-body">{product.name}</td>
                   <td className="px-4 py-3 font-body text-[rgba(240,230,211,0.7)]">
-                    {SPECIES_LABELS[product.species]}
+                    {product.species ? (
+                      SPECIES_LABELS[product.species]
+                    ) : (
+                      <span className="text-[rgba(240,230,211,0.3)]">—</span>
+                    )}
                   </td>
                   <td className="px-4 py-3 font-body text-[rgba(240,230,211,0.7)]">
                     {PRODUCT_TYPE_LABELS[product.type]}

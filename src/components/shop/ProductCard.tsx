@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Product } from "@prisma/client";
 import { SPECIES_LABELS } from "@/lib/species";
+import { PRODUCT_CATEGORY_SHORT } from "@/lib/productCategory";
 import { formatPrice } from "@/lib/money";
 
 export default function ProductCard({ product }: { product: Product }) {
@@ -32,9 +33,15 @@ export default function ProductCard({ product }: { product: Product }) {
           )}
         </div>
         <div className="p-5">
-          <span className="inline-block bg-brand-sectionGreen px-3 py-1 font-condensed text-xs uppercase tracking-widest text-brand-textOnDark">
-            {SPECIES_LABELS[product.species]}
-          </span>
+          {product.species ? (
+            <span className="inline-block bg-brand-sectionGreen px-3 py-1 font-condensed text-xs uppercase tracking-widest text-brand-textOnDark">
+              {SPECIES_LABELS[product.species]}
+            </span>
+          ) : (
+            <span className="inline-block rounded bg-[rgba(201,168,76,0.15)] px-3 py-1 font-condensed text-xs uppercase tracking-widest text-[#c9a84c]">
+              {PRODUCT_CATEGORY_SHORT[product.category]}
+            </span>
+          )}
           <h3 className="mt-3 font-display text-xl text-brand-textPrimary">
             {product.name}
           </h3>

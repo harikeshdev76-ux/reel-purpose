@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
 import { SPECIES_LABELS } from "@/lib/species";
+import { PRODUCT_CATEGORY_LABELS } from "@/lib/productCategory";
 import { formatPrice } from "@/lib/money";
 import AddToCartSection from "@/components/shop/AddToCartSection";
 import { getContent, c } from "@/lib/content";
@@ -44,7 +45,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const product = await getProduct(params.slug);
   if (!product || !product.active) notFound();
 
-  const speciesLabel = SPECIES_LABELS[product.species];
+  const speciesLabel = product.species
+    ? SPECIES_LABELS[product.species]
+    : PRODUCT_CATEGORY_LABELS[product.category];
 
   const content = await getContent([
     "product.brand.title",
