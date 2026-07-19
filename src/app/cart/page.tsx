@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useCart } from "@/context/CartContext";
-import { calculateTotal } from "@/lib/tax";
+import { calculateTotal, DEFAULT_TAX_RATE } from "@/lib/tax";
 import { formatPrice } from "@/lib/money";
 import { SPECIES_LABELS } from "@/lib/species";
 import { getProductColor, colorLabel } from "@/lib/productColors";
@@ -62,7 +62,26 @@ export default function CartPage() {
     };
   }, [session]);
 
-  const { tax, total } = calculateTotal(subtotal);
+  const [taxRate, setTaxRate] = useState(DEFAULT_TAX_RATE);
+  const [taxPercent, setTaxPercent] = useState("7%");
+
+  // Read the live tax rate from the CMS-backed public endpoint.
+  useEffect(() => {
+    let active = true;
+    fetch("/api/tax-rate")
+      .then((r) => r.json())
+      .then((d: { rate?: number; percentage?: string }) => {
+        if (!active) return;
+        if (typeof d.rate === "number") setTaxRate(d.rate);
+        if (d.percentage) setTaxPercent(d.percentage);
+      })
+      .catch(() => {});
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const { tax, total } = calculateTotal(subtotal, taxRate);
   const isEmpty = items.length === 0;
 
   async function handleCheckout() {
@@ -225,7 +244,7 @@ export default function CartPage() {
                     <span>{formatPrice(subtotal)}</span>
                   </div>
                   <div className="flex items-center justify-between font-body text-sm text-brand-textPrimary">
-                    <span>Sales Tax (7%)</span>
+                    <span>Sales Tax ({taxPercent})</span>
                     <span>{formatPrice(tax)}</span>
                   </div>
                 </div>

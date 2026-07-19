@@ -259,6 +259,9 @@ You can control cookies through your browser settings. Note that disabling cooki
 ## Contact Us
 For questions about our Cookie Policy, contact us at reelpurpose.fishing`,
   },
+
+  // Settings
+  { key: "settings.tax.rate", value: "0.07", type: ContentType.TEXT, label: "Florida Sales Tax Rate (decimal, e.g. 0.07 for 7%)", section: "Settings" },
 ];
 
 async function main() {

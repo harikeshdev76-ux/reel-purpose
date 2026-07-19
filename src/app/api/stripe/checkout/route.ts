@@ -5,6 +5,7 @@ import { stripe } from "@/lib/stripe";
 import { prisma } from "@/lib/prisma";
 import { authOptions } from "@/lib/auth";
 import { calculateTotal } from "@/lib/tax";
+import { getTaxRate } from "@/lib/taxRate";
 import { colorLabel } from "@/lib/productColors";
 
 type IncomingItem = {
@@ -75,7 +76,8 @@ export async function POST(req: Request) {
       (sum, li) => sum + li.price * li.quantity,
       0,
     );
-    const { tax, total } = calculateTotal(subtotal);
+    const taxRate = await getTaxRate();
+    const { tax, total } = calculateTotal(subtotal, taxRate);
     const orderNumber = "RP-" + Date.now().toString().slice(-6);
 
     // Create the pending order first. stripeSessionId is unique + required, so
