@@ -262,6 +262,7 @@ For questions about our Cookie Policy, contact us at reelpurpose.fishing`,
 
   // Settings
   { key: "settings.tax.rate", value: "0.07", type: ContentType.TEXT, label: "Florida Sales Tax Rate (decimal, e.g. 0.07 for 7%)", section: "Settings" },
+  { key: "settings.shipping.fee", value: "5.99", type: ContentType.TEXT, label: "Shipping & Handling Fee (USD, e.g. 5.99 — set 0 for free shipping)", section: "Settings" },
 ];
 
 async function main() {

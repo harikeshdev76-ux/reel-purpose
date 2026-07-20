@@ -69,6 +69,14 @@ export default function OrderConfirmation({ order }: { order: OrderWithItems }) 
               {formatPrice(order.taxAmount)}
             </Column>
           </Row>
+          {order.shippingAmount > 0 && (
+            <Row>
+              <Column style={labelStyle}>Shipping &amp; Handling</Column>
+              <Column align="right" style={labelStyle}>
+                {formatPrice(order.shippingAmount)}
+              </Column>
+            </Row>
+          )}
           <Row>
             <Column style={{ ...labelStyle, fontWeight: "bold" }}>Total</Column>
             <Column

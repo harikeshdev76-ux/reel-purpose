@@ -35,8 +35,9 @@ model Order {
   customerEmail   String
   shippingAddress Json        // { line1, line2, city, state, zip, country }
   subtotal        Int         // Cents — before tax
-  taxAmount       Int         // Cents — 7% of subtotal
-  total           Int         // Cents — subtotal + tax
+  taxAmount       Int         // Cents — tax on subtotal
+  shippingAmount  Int         @default(0) // Cents — shipping & handling fee
+  total           Int         // Cents — subtotal + tax + shipping
   status          OrderStatus @default(PENDING)
   vendorPaid      Boolean     @default(false)
   vendorCost      Int?        // Cents — optional, entered manually by admin

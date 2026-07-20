@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useCart } from "@/context/CartContext";
 import { calculateTotal, DEFAULT_TAX_RATE } from "@/lib/tax";
+import { DEFAULT_SHIPPING_FEE_CENTS } from "@/lib/shipping";
 import { formatPrice } from "@/lib/money";
 import { SPECIES_LABELS } from "@/lib/species";
 import { getProductColor, colorLabel } from "@/lib/productColors";
@@ -64,24 +65,32 @@ export default function CartPage() {
 
   const [taxRate, setTaxRate] = useState(DEFAULT_TAX_RATE);
   const [taxPercent, setTaxPercent] = useState("7%");
+  const [shippingFee, setShippingFee] = useState(DEFAULT_SHIPPING_FEE_CENTS);
 
-  // Read the live tax rate from the CMS-backed public endpoint.
+  // Read the live tax rate + shipping fee from the CMS-backed public endpoint.
   useEffect(() => {
     let active = true;
     fetch("/api/tax-rate")
       .then((r) => r.json())
-      .then((d: { rate?: number; percentage?: string }) => {
-        if (!active) return;
-        if (typeof d.rate === "number") setTaxRate(d.rate);
-        if (d.percentage) setTaxPercent(d.percentage);
-      })
+      .then(
+        (d: { rate?: number; percentage?: string; shippingFee?: number }) => {
+          if (!active) return;
+          if (typeof d.rate === "number") setTaxRate(d.rate);
+          if (d.percentage) setTaxPercent(d.percentage);
+          if (typeof d.shippingFee === "number") setShippingFee(d.shippingFee);
+        },
+      )
       .catch(() => {});
     return () => {
       active = false;
     };
   }, []);
 
-  const { tax, total } = calculateTotal(subtotal, taxRate);
+  const { tax, shipping, total } = calculateTotal(
+    subtotal,
+    taxRate,
+    shippingFee,
+  );
   const isEmpty = items.length === 0;
 
   async function handleCheckout() {
@@ -246,6 +255,10 @@ export default function CartPage() {
                   <div className="flex items-center justify-between font-body text-sm text-brand-textPrimary">
                     <span>Sales Tax ({taxPercent})</span>
                     <span>{formatPrice(tax)}</span>
+                  </div>
+                  <div className="flex items-center justify-between font-body text-sm text-brand-textPrimary">
+                    <span>Shipping &amp; Handling</span>
+                    <span>{shipping === 0 ? "Free" : formatPrice(shipping)}</span>
                   </div>
                 </div>
                 <hr className="my-4 border-brand-border" />

@@ -9,15 +9,19 @@ export function calculateTax(subtotalCents: number, rate: number): number {
 export function calculateTotal(
   subtotalCents: number,
   rate: number,
+  shippingCents = 0,
 ): {
   subtotal: number;
   tax: number;
+  shipping: number;
   total: number;
 } {
   const tax = calculateTax(subtotalCents, rate);
+  const shipping = Math.max(0, Math.round(shippingCents));
   return {
     subtotal: subtotalCents,
     tax,
-    total: subtotalCents + tax,
+    shipping,
+    total: subtotalCents + tax + shipping,
   };
 }

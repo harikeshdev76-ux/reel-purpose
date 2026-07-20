@@ -6,6 +6,7 @@ import { prisma } from "@/lib/prisma";
 import { authOptions } from "@/lib/auth";
 import { calculateTotal } from "@/lib/tax";
 import { getTaxRate } from "@/lib/taxRate";
+import { getShippingFee } from "@/lib/shippingFee";
 import { colorLabel } from "@/lib/productColors";
 
 type IncomingItem = {
@@ -77,7 +78,12 @@ export async function POST(req: Request) {
       0,
     );
     const taxRate = await getTaxRate();
-    const { tax, total } = calculateTotal(subtotal, taxRate);
+    const shippingFee = await getShippingFee();
+    const { tax, shipping, total } = calculateTotal(
+      subtotal,
+      taxRate,
+      shippingFee,
+    );
     const orderNumber = "RP-" + Date.now().toString().slice(-6);
 
     // Create the pending order first. stripeSessionId is unique + required, so
@@ -92,6 +98,7 @@ export async function POST(req: Request) {
         shippingAddress: {},
         subtotal,
         taxAmount: tax,
+        shippingAmount: shipping,
         total,
         items: {
           create: lineItems.map((li) => ({
@@ -130,6 +137,18 @@ export async function POST(req: Request) {
           },
           quantity: 1,
         },
+        ...(shipping > 0
+          ? [
+              {
+                price_data: {
+                  currency: "usd" as const,
+                  product_data: { name: "Shipping & Handling" },
+                  unit_amount: shipping,
+                },
+                quantity: 1,
+              },
+            ]
+          : []),
       ],
       success_url: `${appUrl()}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${appUrl()}/cart`,

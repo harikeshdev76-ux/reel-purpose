@@ -114,6 +114,11 @@ export default async function OrderDetailPage({ params }: OrderDetailProps) {
               <p className="text-[rgba(240,230,211,0.7)]">
                 Tax (7%): {formatUSD(order.taxAmount)}
               </p>
+              {order.shippingAmount > 0 && (
+                <p className="text-[rgba(240,230,211,0.7)]">
+                  Shipping &amp; Handling: {formatUSD(order.shippingAmount)}
+                </p>
+              )}
               <p className="font-display text-xl text-[#c9a84c]">
                 Total: {formatUSD(order.total)}
               </p>
