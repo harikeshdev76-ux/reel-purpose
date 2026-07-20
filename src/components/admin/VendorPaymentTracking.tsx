@@ -34,8 +34,13 @@ function CustomerCell({ name }: { name: string }) {
 
 export default async function VendorPaymentTracking() {
   const [unpaidOrders, paidOrders] = await Promise.all([
+    // Only real sales are owed to the vendor. An Order row is created at
+    // checkout-start (status PENDING, blank customer) before payment; if the
+    // customer abandons Stripe, the completion webhook never fires and the row
+    // stays PENDING forever. Excluding PENDING keeps those abandoned orders out
+    // of the payment queue and out of the Outstanding Balance total.
     prisma.order.findMany({
-      where: { vendorPaid: false },
+      where: { vendorPaid: false, status: { not: "PENDING" } },
       orderBy: { createdAt: "desc" },
       include: { items: { include: { product: true } } },
     }),
