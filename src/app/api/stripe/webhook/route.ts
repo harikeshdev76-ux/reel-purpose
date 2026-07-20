@@ -108,13 +108,19 @@ export async function POST(req: Request) {
           orderBy: { createdAt: "asc" },
         });
 
+        // Stripe's billing name (customer_details.name) can be null when only a
+        // shipping recipient was entered. Fall back to the shipping name so the
+        // order never ends up with a blank customer. extractShipping already
+        // applies the same fallback for the address name.
+        const shipping = extractShipping(session);
+
         await prisma.order.update({
           where: { id: orderId },
           data: {
             status: OrderStatus.FULFILLED,
-            customerName: session.customer_details?.name ?? "",
+            customerName: session.customer_details?.name || shipping.name || "",
             customerEmail: session.customer_details?.email ?? "",
-            shippingAddress: extractShipping(session),
+            shippingAddress: shipping,
             stripeSessionId: session.id,
             vendorId: vendor?.id ?? null,
             // Reinforce the customer link from checkout metadata (guests omit
