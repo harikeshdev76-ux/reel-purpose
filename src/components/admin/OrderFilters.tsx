@@ -4,7 +4,6 @@ import { useRouter, usePathname } from "next/navigation";
 
 const STATUSES = [
   { label: "All", value: "" },
-  { label: "Pending", value: "PENDING" },
   { label: "Fulfilled", value: "FULFILLED" },
   { label: "Shipped", value: "SHIPPED" },
 ];

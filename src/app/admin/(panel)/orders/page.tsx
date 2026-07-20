@@ -21,8 +21,15 @@ export default async function OrdersPage({ searchParams }: OrdersPageProps) {
   const from = searchParams.from ?? "";
   const to = searchParams.to ?? "";
 
-  const where: Prisma.OrderWhereInput = {};
-  if (status) where.status = status;
+  // Abandoned PENDING orders (created pre-payment, never completed) are hidden
+  // everywhere in the admin. A non-pending status filters to it; anything else
+  // (no filter, or a manual ?status=PENDING) still excludes pending orders.
+  const where: Prisma.OrderWhereInput = {
+    status:
+      status && status !== OrderStatus.PENDING
+        ? status
+        : { not: OrderStatus.PENDING },
+  };
 
   const createdAt: Prisma.DateTimeFilter = {};
   if (from) createdAt.gte = new Date(from);

@@ -19,22 +19,26 @@ export default async function DashboardPage() {
   const todayStart = startOfToday();
   const monthStart = startOfMonth();
 
+  // Abandoned PENDING orders (created at checkout-start before payment, never
+  // completed by the Stripe webhook) are not real sales — exclude them from
+  // revenue, order counts, tax collected, amount owed, and the activity feed.
   const [todayAgg, owedAgg, taxAgg, recentOrders, outOfStockCount] =
     await Promise.all([
       prisma.order.aggregate({
         _count: true,
         _sum: { total: true },
-        where: { createdAt: { gte: todayStart } },
+        where: { createdAt: { gte: todayStart }, status: { not: "PENDING" } },
       }),
       prisma.order.aggregate({
         _sum: { total: true },
-        where: { vendorPaid: false },
+        where: { vendorPaid: false, status: { not: "PENDING" } },
       }),
       prisma.order.aggregate({
         _sum: { taxAmount: true },
-        where: { createdAt: { gte: monthStart } },
+        where: { createdAt: { gte: monthStart }, status: { not: "PENDING" } },
       }),
       prisma.order.findMany({
+        where: { status: { not: "PENDING" } },
         orderBy: { createdAt: "desc" },
         take: 5,
         include: { items: { include: { product: true } } },
