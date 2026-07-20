@@ -20,6 +20,18 @@ function itemCount(order: OrderWithItems): number {
   return order.items.reduce((sum, item) => sum + item.quantity, 0);
 }
 
+/** Order customer name, or a muted "Guest Customer" fallback when missing. */
+function CustomerCell({ name }: { name: string }) {
+  if (!name || name.trim() === "") {
+    return (
+      <span className="text-sm italic text-[rgba(240,230,211,0.4)]">
+        Guest Customer
+      </span>
+    );
+  }
+  return <>{name}</>;
+}
+
 export default async function VendorPaymentTracking() {
   const [unpaidOrders, paidOrders] = await Promise.all([
     prisma.order.findMany({
@@ -111,7 +123,9 @@ export default async function VendorPaymentTracking() {
                       year: "numeric",
                     })}
                   </td>
-                  <td className="px-4 py-3 font-body">{order.customerName}</td>
+                  <td className="px-4 py-3 font-body">
+                    <CustomerCell name={order.customerName} />
+                  </td>
                   <td className="px-4 py-3 font-body">{itemCount(order)}</td>
                   <td className="px-4 py-3 font-body">{formatUSD(order.total)}</td>
                   <td className="px-4 py-3 font-body">
@@ -183,7 +197,9 @@ export default async function VendorPaymentTracking() {
                         year: "numeric",
                       })}
                     </td>
-                    <td className="px-4 py-3 font-body">{order.customerName}</td>
+                    <td className="px-4 py-3 font-body">
+                    <CustomerCell name={order.customerName} />
+                  </td>
                     <td className="px-4 py-3 font-body">{itemCount(order)}</td>
                     <td className="px-4 py-3 font-body">
                       {formatUSD(vendorAmount(order))}
